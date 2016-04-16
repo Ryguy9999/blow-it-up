@@ -9,6 +9,7 @@ public class Reflector extends DrawingActor {
 	}
 
 	public Reflector(float range) {
+		super(null); //TODO: HOPEFULLY THIS WILL MAKE SENSE LATER
 		this.range = range;
 	}
 
