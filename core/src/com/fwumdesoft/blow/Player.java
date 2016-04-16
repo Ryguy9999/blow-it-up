@@ -1,9 +1,8 @@
 package com.fwumdesoft.blow;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Player extends Actor {
+public class Player extends DrawingActor {
 	public byte id;
 	private short health, maxHealth;
 	public float powerLevel;
