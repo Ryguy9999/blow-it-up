@@ -27,11 +27,13 @@ public class GameScreen extends ScreenAdapter {
 		stage.addActor(m1);
 	}
 	
+	EffectActor ef = new EffectActor();
 	@Override
 	public void render (float delta) {
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
 		stage.draw();
+		ef.doLightingEffect(30, 30, 200, 200, 7);
 	}
 }
