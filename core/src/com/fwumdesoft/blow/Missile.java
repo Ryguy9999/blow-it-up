@@ -14,11 +14,30 @@ public class Missile extends Actor implements Poolable {
 	private Vector2 vPos;
 	
 	/**
-	 * Instantiates a new Missile with a damage of 10.
+	 * Instantiates a new Missile with a damage of 10 @ position (0, 0).
 	 */
 	public Missile() {
-		damage = 10;
-		vPos = new Vector2();
+		this(10, 0, 0);
+	}
+	
+	/**
+	 * Instantiates a new Missile with a damage of 10 @ position (<tt>x</tt>, <tt>y</tt>).
+	 * @param x
+	 * @param y
+	 */
+	public Missile(float x, float y) {
+		this(10, x, y);
+	}
+	
+	/**
+	 * Instantiates a new Missile with a damage of <tt>damage</tt> @ position (<tt>x</tt>, <tt>y</tt>).
+	 * @param damage
+	 * @param x
+	 * @param y
+	 */
+	public Missile(float damage, float x, float y) {
+		this.damage = damage;
+		vPos = new Vector2(x, y);
 	}
 
 	@Override
