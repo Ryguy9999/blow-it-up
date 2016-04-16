@@ -1,6 +1,7 @@
 package com.fwumdesoft.blow;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Player extends DrawingActor {
 	public byte id;
@@ -47,5 +48,15 @@ public class Player extends DrawingActor {
 	public boolean doDamage(short dmg) {
 		health -= dmg;
 		return health <= 0;
+	}
+	
+	@Override
+	public void act(float delta) {
+		//check if the player was hit
+		for(Actor a : getStage().getActors()) {
+			if(a instanceof Missile) {
+				Missile m = (Missile)a;
+			}
+		}
 	}
 }

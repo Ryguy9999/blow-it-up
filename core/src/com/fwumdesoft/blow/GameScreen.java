@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Pool;
+import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -15,11 +17,15 @@ public class GameScreen extends ScreenAdapter {
 	SpriteBatch batch;
 	final float WORLD_WIDTH = 1920, WORLD_HEIGHT = 1080;
 	
+	public static Pool<Missile> missilePool;
+	
 	public GameScreen() {
 		batch = new SpriteBatch();
 		Camera camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Viewport viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 		stage = new Stage(viewport, batch);
+		
+		missilePool = Pools.get(Missile.class); //max missiles in pool = 100
 		
 		Missile m1 = new Missile(); //Debug Missile :)
 		m1.speed = 50;

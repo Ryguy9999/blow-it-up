@@ -2,6 +2,7 @@ package com.fwumdesoft.blow;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
@@ -11,7 +12,9 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 public class Missile extends DrawingActor implements Poolable {
 	public float damage, speed;
 	public int lane;
+	
 	private Vector2 vPos;
+	private Polygon bounds;
 	
 	/**
 	 * Instantiates a new Missile with a damage of 10 @ position (0, 0).
@@ -53,6 +56,7 @@ public class Missile extends DrawingActor implements Poolable {
 		setY(y);
 		vPos = new Vector2(x, y);
 		this.lane = lane;
+		bounds = new Polygon(new float[] {0,0, getWidth(),0,  0,getHeight(), getWidth(),getHeight()});
 	}
 
 	@Override
