@@ -17,4 +17,9 @@ public class BlowItUp extends Game {
 		
 		setScreen(new GameScreen());
 	}
+	
+	@Override
+	public void dispose() {
+		assets.dispose();
+	}
 }

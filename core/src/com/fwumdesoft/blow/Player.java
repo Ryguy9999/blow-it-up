@@ -14,7 +14,7 @@ public class Player extends DrawingActor {
 	 * @param health The maximumHealth of the player and the initial health of the player
 	 */
 	public Player(byte id, short health) {
-		super(null); //TODO: FIX
+		super(null); //TODO Replace with player texture when done
 		this.id = id;
 		maxHealth = this.health = health;
 		powerLevel = 0;
