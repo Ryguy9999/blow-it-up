@@ -1,5 +1,6 @@
 package com.fwumdesoft.blow;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -65,6 +66,11 @@ public class Missile extends Actor implements Poolable {
 	public void act(float delta) {
 		setX(getX() + speed * MathUtils.cosDeg(getRotation()) * delta);
 		setY(getY() + speed * MathUtils.sinDeg(getRotation()) * delta);
+	}
+	
+	@Override
+	public void draw(Batch batch, float parentAlpha) {
+		
 	}
 	
 	/**
