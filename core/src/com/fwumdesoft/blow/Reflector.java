@@ -1,5 +1,6 @@
 package com.fwumdesoft.blow;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
@@ -14,13 +15,17 @@ public class Reflector extends DrawingActor {
 	}
 
 	public Reflector(float range, int lane) {
-		super(null); // TODO Replace with reflector asset when done
+		super(BlowItUp.assets.get("missile.png", Texture.class)); // TODO Replace with reflector asset when done
 		this.range = range;
 		this.lane = lane;
+		setRotation(lane * 45);
 	}
 
 	public void launchMissile() {
-		getStage().addActor(new Missile(10, 0, 0, lane));
+		Missile m1 = new Missile(1, getX(), getY(), lane); 
+		m1.speed = 50;
+		m1.setRotation(getRotation());
+		getStage().addActor(m1);
 	}
 
 	public void reflectMissile(Missile m) {
