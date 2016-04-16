@@ -1,6 +1,8 @@
 package com.fwumdesoft.blow;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -47,7 +49,10 @@ public class Missile extends DrawingActor implements Poolable {
 	 * @param lane
 	 */
 	public Missile(float damage, float x, float y, int lane) {
+		super(BlowItUp.assets.get("missile.png", Texture.class));
 		this.damage = damage;
+		setX(x);
+		setY(y);
 		vPos = new Vector2(x, y);
 		this.lane = lane;
 	}
@@ -58,17 +63,15 @@ public class Missile extends DrawingActor implements Poolable {
 		setX(0);
 		setY(0);
 		vPos.set(getX(), getY());
+		speed = 0;
+		lane = 0;
 	}
 	
 	@Override
 	public void act(float delta) {
 		setX(getX() + speed * MathUtils.cosDeg(getRotation()) * delta);
 		setY(getY() + speed * MathUtils.sinDeg(getRotation()) * delta);
-	}
-	
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		
+		Gdx.app.log("Missile", getX() + " " + getY());
 	}
 	
 	/**

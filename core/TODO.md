@@ -37,9 +37,13 @@
 
 **Assignee**: Alex
 
+**Completed**:
+
 - Draw base
 
 - Draw missiles
+
+**In progress**:
 
 - Planet rotation
 

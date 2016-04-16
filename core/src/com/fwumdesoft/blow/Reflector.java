@@ -1,9 +1,6 @@
 package com.fwumdesoft.blow;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-
 public class Reflector extends DrawingActor {
-
 
 	public float range;
 	public int lane;
@@ -13,6 +10,7 @@ public class Reflector extends DrawingActor {
 	}
 	
 	public Reflector(float range, int lane) {
+
 		this.range = range;
 		this.lane = lane;
 	}
@@ -21,17 +19,13 @@ public class Reflector extends DrawingActor {
 		getStage().addActor(new Missile(10, 0, 0, lane));
 	}
 	
-	public Missile reflectMissile(Missile m) {
-		
+	public void reflectMissile(Missile m) {
+		if(m.getRotation() != this.getRotation())
+			m.setRotation(m.getRotation() + 180);
 	}
-	
+
 	@Override
 	public void act(float delta) {
-		
-	}
-	
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		
+
 	}
 }
