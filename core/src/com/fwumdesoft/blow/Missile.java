@@ -2,14 +2,12 @@ package com.fwumdesoft.blow;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 /**
  * Represents a Missile that each player must reflect in order to survive.
  */
-public class Missile extends Actor implements Poolable {
-	//TODO needs graphic component
+public class Missile extends DrawingActor implements Poolable {
 	public float damage, speed;
 	public int lane;
 	private Vector2 vPos;
