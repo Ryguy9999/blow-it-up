@@ -1,11 +1,17 @@
 #TODO
 ##Gameplay core
 
+**Complete**:
+
 - Player class with player id, health, power level, and texture properties
 
 - Missile class with position, damage, speed, and texture properties
 
 - Reflector class with position, range, and trigger effects 
+
+**In Progress**:
+
+**Assignee**: Jason
 
 - Storing two different players
 
@@ -29,6 +35,8 @@
 
 ##Rendering Code
 
+**Assignee**: Alex
+
 - Draw base
 
 - Draw missiles
@@ -51,6 +59,8 @@
 
 ##Sound Code
 
+**Assignee**: Ryan C
+
 - Generate song
 
 - Calculate BPM
@@ -68,6 +78,8 @@
 - Play sad sounds when base gets hit
 
 ##Effects
+
+**Assignee**: Ryan G
 
 - Missile particles
 
@@ -92,6 +104,8 @@
 - UI Balance
 
 ##Input
+
+**Assignee**: Ryan G
 
 - Register keyboard input
 
