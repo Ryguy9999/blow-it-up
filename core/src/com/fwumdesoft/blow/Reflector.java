@@ -6,13 +6,23 @@ public class Reflector extends DrawingActor {
 
 
 	public float range;
+	public int lane;
 	
-	public Reflector() {
-		this(10);
+	public Reflector(int lane) {
+		this(10, lane);
 	}
 	
-	public Reflector(float range) {
+	public Reflector(float range, int lane) {
 		this.range = range;
+		this.lane = lane;
+	}
+	
+	public void launchMissile() {
+		getStage().addActor(new Missile(10, 0, 0, lane));
+	}
+	
+	public Missile reflectMissile(Missile m) {
+		
 	}
 	
 	@Override
