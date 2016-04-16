@@ -1,5 +1,6 @@
 package com.fwumdesoft.blow;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool.Poolable;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
  */
 public class Missile extends Actor implements Poolable {
 	//TODO needs graphic component
-	public float damage;
+	public float damage, speed;
 
 	private Vector2 vPos;
 	
@@ -50,7 +51,8 @@ public class Missile extends Actor implements Poolable {
 	
 	@Override
 	public void act(float delta) {
-		
+		setX(getX() + speed * MathUtils.cosDeg(getRotation()) * delta);
+		setY(getY() + speed * MathUtils.sinDeg(getRotation()) * delta);
 	}
 	
 	/**

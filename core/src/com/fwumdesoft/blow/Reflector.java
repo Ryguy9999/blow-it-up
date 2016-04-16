@@ -12,4 +12,9 @@ public class Reflector extends Actor {
 	public Reflector(float range) {
 		this.range = range;
 	}
+	
+	@Override
+	public void act(float delta) {
+		
+	}
 }
