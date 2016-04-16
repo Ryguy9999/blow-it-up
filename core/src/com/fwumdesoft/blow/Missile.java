@@ -29,6 +29,11 @@ public class Missile extends Actor implements Poolable {
 		vPos.set(getX(), getY());
 	}
 	
+	@Override
+	public void act(float delta) {
+		
+	}
+	
 	/**
 	 * @return the vector representation of the bottom-left corner of this Missile object.
 	 */
