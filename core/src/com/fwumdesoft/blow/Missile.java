@@ -11,14 +11,14 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 public class Missile extends Actor implements Poolable {
 	//TODO needs graphic component
 	public float damage, speed;
-
+	public int lane;
 	private Vector2 vPos;
 	
 	/**
 	 * Instantiates a new Missile with a damage of 10 @ position (0, 0).
 	 */
 	public Missile() {
-		this(10, 0, 0);
+		this(10, 0, 0, 0);
 	}
 	
 	/**
@@ -27,7 +27,7 @@ public class Missile extends Actor implements Poolable {
 	 * @param y
 	 */
 	public Missile(float x, float y) {
-		this(10, x, y);
+		this(10, x, y, 0);
 	}
 	
 	/**
@@ -37,8 +37,20 @@ public class Missile extends Actor implements Poolable {
 	 * @param y
 	 */
 	public Missile(float damage, float x, float y) {
+		this(damage, x, y, 0);
+	}
+
+	/**
+	 * Instantiates a new Missile with a damage of <tt>damage</tt> @ position (<tt>x</tt>, <tt>y</tt>) on lane <tt>lane</tt>.
+	 * @param damage
+	 * @param x
+	 * @param y
+	 * @param lane
+	 */
+	public Missile(float damage, float x, float y, int lane) {
 		this.damage = damage;
 		vPos = new Vector2(x, y);
+		this.lane = lane;
 	}
 
 	@Override
