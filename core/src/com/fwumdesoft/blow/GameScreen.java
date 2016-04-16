@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -16,6 +17,8 @@ public class GameScreen extends ScreenAdapter {
 	Stage stage;
 	SpriteBatch batch;
 	final float WORLD_WIDTH = 1920, WORLD_HEIGHT = 1080;
+	int playerNumber = 0;
+	boolean isAttacking = true;
 	
 	public static Pool<Missile> missilePool;
 	
@@ -27,9 +30,19 @@ public class GameScreen extends ScreenAdapter {
 		
 		missilePool = Pools.get(Missile.class); //max missiles in pool = 100
 		
+		Reflector[] reflectors = new Reflector[8];
+		for(int i = 0; i < reflectors.length; i++) {
+			reflectors[i] = new Reflector(50, i); 
+			reflectors[i].setPosition(1920 / 2, 1080 / 2);
+			stage.addActor(reflectors[i]);
+		}
+		stage.addActor(new InputManager(this, reflectors));
+		
 		Missile m1 = new Missile(); //Debug Missile :)
 		m1.speed = 50;
-		m1.setRotation(45);
+		m1.setRotation(180);
+		m1.setY(1080 / 2);
+		m1.setX(1920);
 		stage.addActor(m1);
 	}
 	
