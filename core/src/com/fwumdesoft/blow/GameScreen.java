@@ -22,7 +22,7 @@ public class GameScreen extends ScreenAdapter {
 	
 	@Override
 	public void render (float delta) {
-		stage.act();
+		stage.act(delta);
 		stage.draw();
 	}
 }
