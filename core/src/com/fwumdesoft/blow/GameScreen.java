@@ -1,5 +1,8 @@
 package com.fwumdesoft.blow;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
@@ -7,15 +10,19 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.fwumdesoft.music.Music;
+import com.fwumdesoft.music.Song;
 
 public class GameScreen extends ScreenAdapter {
 	Stage stage;
 	SpriteBatch batch;
+	Song song;
 	final float WORLD_WIDTH = 1920, WORLD_HEIGHT = 1080;
 	int playerNumber = 0;
 	boolean isAttacking = false;
@@ -47,20 +54,40 @@ public class GameScreen extends ScreenAdapter {
 		Player p1 = new Player(0, 10); //Debug player :(
 		stage.addActor(p1);
 		
+		spawnMissile(2);
 		Missile m1 = new Missile(10, 0); //Debug Missile :)
 		m1.speed = 200;
 		m1.setRotation(180);
 		m1.setY(1080 / 2);
 		m1.setX(1920);
 		stage.addActor(m1);
+		
+		//Randomly select a song
+		Runnable musicRunnable = () -> {
+			try {
+				File songAssets = Gdx.files.internal("music").file();
+				song = new Song(songAssets.listFiles()[(int)(Math.random() * songAssets.listFiles().length)]);
+				Music piano = new Music(song.bpm, 0);
+				piano.playSong(song);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		};
+		
+		new Thread(musicRunnable).start();
+		
 	}
 	
+	
 	private void spawnMissile(int lane) {
+		final int SPAWN_DISTANCE = 600;
 		Missile m = missilePool.obtain();
 		m.lane = lane;
 		m.setRotation(lane * 45 + 180);
+		m.setX(1920 / 2 + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
+		m.setY(1080 / 2 + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
 		m.speed = Missile.DEFAULT_SPEED;
-		//TODO give the missile a proper position
+		stage.addActor(m);
 	}
 	
 	@Override
