@@ -58,7 +58,7 @@ public class Player extends DrawingActor {
 	
 	@Override
 	public void act(float delta) {
-		//check if the player was hit
+		//check if the player was lit (ayyy lmao)
 		for(Actor a : getStage().getActors()) {
 			if(a instanceof Missile) {
 				Missile m = (Missile)a;

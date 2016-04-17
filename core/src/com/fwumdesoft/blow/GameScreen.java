@@ -37,6 +37,8 @@ public class GameScreen extends ScreenAdapter {
 		}
 		stage.addActor(new InputManager(this, reflectors));
 		
+		Player p1 = new Player();
+		
 		Missile m1 = new Missile(); //Debug Missile :)
 		m1.speed = 50;
 		m1.setRotation(180);
