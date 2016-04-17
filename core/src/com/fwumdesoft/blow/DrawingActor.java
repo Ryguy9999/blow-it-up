@@ -15,6 +15,7 @@ public abstract class DrawingActor extends Actor {
 	
 	@Override
 	public void draw(Batch batch, float parentLevel) {
+		batch.setColor(getColor());
 		batch.draw(texture, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 	}
 }

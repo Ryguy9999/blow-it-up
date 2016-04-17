@@ -1,5 +1,6 @@
 package com.fwumdesoft.blow;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -38,7 +39,7 @@ public class Reflector extends DrawingActor {
 			float xSpeed = (float) (3 * Math.cos(Math.toRadians(getRotation())));
 			float ySpeed = (float) (3 * Math.sin(Math.toRadians(getRotation())));
 			float len = (float)Math.sqrt(xSpeed * xSpeed + ySpeed * ySpeed);
-			Particle.spawnCluster(getStage(), 15, 1920 / 2 + 100 * (xSpeed / len), 1080 / 2 + 100 * (ySpeed / len), 1, xSpeed, ySpeed, 0.5f, 45, 15);
+			Particle.spawnCluster(getStage(), 15, 1920 / 2 + 100 * (xSpeed / len), 1080 / 2 + 100 * (ySpeed / len), 1, xSpeed, ySpeed, 0.5f, 45, 15, Color.BLUE);
 		}
 	}
 
