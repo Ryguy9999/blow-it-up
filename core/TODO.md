@@ -15,11 +15,12 @@
 
 - Defense phase
 
+- Keyboard input
+
+
 **In Progress**:
 
 **Assignee**: Jason
-
-- Keyboard input
 
 - Switching between players
 
@@ -113,7 +114,8 @@
 
 - Register controller input
 
+- Register keyboard input
+
 **In progress**:
 
-- Register keyboard input
 
