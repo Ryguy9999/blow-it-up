@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -29,7 +28,6 @@ public class GameScreen extends ScreenAdapter {
 	Player p1;
 	private Camera camera;
 	private static boolean shaking;
-	private static Vector3 shakeDirection, shakeDistance;
 	private static float timeOnShake, totalShakeTime, shakeX, shakeY;
 	
 	public static Pool<Missile> missilePool;
@@ -127,7 +125,6 @@ public class GameScreen extends ScreenAdapter {
 	public static void rotateCamera(boolean strong)
 	{
 		shaking = true;
-		shakeDistance = new Vector3(0, 0, 0);
 		if(strong)
 			totalShakeTime = 2;
 		else
