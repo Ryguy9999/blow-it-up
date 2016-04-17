@@ -126,9 +126,9 @@ public class GameScreen extends ScreenAdapter {
 	{
 		shaking = true;
 		if(strong)
-			totalShakeTime = 2;
-		else
 			totalShakeTime = 1;
+		else
+			totalShakeTime = 0.5f;
 				
 	}
 }
