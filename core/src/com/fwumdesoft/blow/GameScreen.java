@@ -25,6 +25,7 @@ public class GameScreen extends ScreenAdapter {
 	final float WORLD_WIDTH = 1920, WORLD_HEIGHT = 1080;
 	int playerNumber = 0;
 	boolean isAttacking = false;
+	Player p1;
 	
 	public static Pool<Missile> missilePool;
 	
@@ -50,7 +51,7 @@ public class GameScreen extends ScreenAdapter {
 		}
 		stage.addActor(new InputManager(this, reflectors));
 		
-		Player p1 = new Player(0, 10); //Debug player :(
+		p1 = new Player(0, 10); //Debug player :(
 		stage.addActor(p1);
 		
 		for(int i = 0; i < 8; i++)
@@ -67,7 +68,7 @@ public class GameScreen extends ScreenAdapter {
 				e.printStackTrace();
 			}
 		};
-		
+		 
 		new Thread(musicRunnable).start();
 		
 	}
@@ -77,9 +78,9 @@ public class GameScreen extends ScreenAdapter {
 		final int SPAWN_DISTANCE = 600;
 		Missile m = missilePool.obtain();
 		m.lane = lane;
+		m.setX(p1.getX() + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
+		m.setY(p1.getY() + 32 + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
 		m.setRotation(lane * 45 + 180);
-		m.setX(1920 / 2 - 48 + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
-		m.setY(1080 / 2 - 48 + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
 		m.speed = Missile.DEFAULT_SPEED;
 		stage.addActor(m);
 	}
