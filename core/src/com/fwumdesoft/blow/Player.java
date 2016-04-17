@@ -74,7 +74,7 @@ public class Player extends DrawingActor {
 				if(overlaps(m.bounds, bounds)) {
 					boolean dead = doDamage(m.damage);
 					if(dead) {
-//						System.out.println("DEAD");
+						GameScreen.up.setScreen(new GameOverScreen());
 					}
 					GameScreen.missilePool.free(m);
 					m.remove();

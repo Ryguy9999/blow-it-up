@@ -29,7 +29,10 @@ public class GameScreen extends ScreenAdapter {
 	
 	public static Pool<Missile> missilePool;
 	
-	public GameScreen() {
+	static BlowItUp up;
+	
+	public GameScreen(BlowItUp upVar) {
+		up = upVar;
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Viewport viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
