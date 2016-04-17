@@ -22,9 +22,8 @@ public class Player extends DrawingActor {
 		this.id = id;
 		maxHealth = this.health = health;
 		powerLevel = 0;
-		texture = null;
-		setX(Gdx.graphics.getWidth()/2);
-		setY(Gdx.graphics.getHeight()/2);
+		setX(1920 / 2 - texture.getRegionWidth() / 2);
+		setY(1080 / 2 - texture.getRegionHeight() / 2);
 		bounds = new Circle(getX(), getY(), texture.getRegionWidth()/2);
 	}
 
