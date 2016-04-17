@@ -1,5 +1,6 @@
 package com.fwumdesoft.blow;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
@@ -30,6 +31,8 @@ public class Reflector extends DrawingActor {
 	}
 
 	public void reflectMissile(Missile m) {
+		Sound sound = BlowItUp.assets.get("music/emp.wav", Sound.class);
+		sound.play();
 		if (!m.flipped) {
 			//TODO: Change speed by quality of reflect
 			m.rotateBy(180);

@@ -46,18 +46,15 @@ public class GameScreen extends ScreenAdapter {
 			reflectors[i].setY(reflectors[i].getY() + 150 * MathUtils.sinDeg(angle) - 40);
 			stage.addActor(reflectors[i]);
 		}
-		stage.addActor(new InputManager(this, reflectors));
+		new InputManager(this, reflectors);
 		
-		p1 = new Player(0, 10); //Debug player :(
+		p1 = new Player(0, 10);
 		stage.addActor(p1);
 		
-		for(int i = 0; i < 8; i++)
-			spawnMissile(i);
-//		TODO: FIX THIS
-//		Music music = Gdx.audio.newMusic(Gdx.files.internal("music/song1.wav"));
-//		music.play();
-//		music.setVolume(1);
-//		music.setLooping(true); 
+		Music music = Gdx.audio.newMusic(Gdx.files.internal("music/song1.wav"));
+		music.setVolume(1);
+		music.setLooping(true); 
+		music.play();
 	}
 	
 	
