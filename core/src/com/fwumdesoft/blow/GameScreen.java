@@ -28,6 +28,8 @@ public class GameScreen extends ScreenAdapter {
 		Viewport viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 		stage = new Stage(viewport, batch);
 		
+		stage.addActor(new BackgroundActor());
+		
 		missilePool = Pools.get(Missile.class); //max missiles in pool = 100
 		
 		Reflector[] reflectors = new Reflector[8];
@@ -57,6 +59,8 @@ public class GameScreen extends ScreenAdapter {
 		Missile m = missilePool.obtain();
 		m.lane = lane;
 		m.setRotation(lane * 45 + 180);
+		m.speed = Missile.DEFAULT_SPEED;
+		//TODO give the missile a proper position
 	}
 	
 	@Override
