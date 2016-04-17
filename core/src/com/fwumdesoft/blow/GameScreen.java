@@ -82,14 +82,17 @@ public class GameScreen extends ScreenAdapter {
 		stage.addActor(m);
 	}
 	
+	private float time = 0;
 	@Override
 	public void render (float delta) {
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
+		time += delta;
 		//spawn missile logic
-		if(Math.random() < 0.02)
+		if(time >= 1 && Math.random() < 1.0/3.0)
 		{
+			time -= 1.0;
 			int lane = (int)(Math.random()*8);
 			spawnMissile(lane);
 		}
