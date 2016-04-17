@@ -57,6 +57,8 @@ public class GameScreen extends ScreenAdapter {
 		Missile m = missilePool.obtain();
 		m.lane = lane;
 		m.setRotation(lane * 45 + 180);
+		m.speed = Missile.DEFAULT_SPEED;
+		//TODO give the missile a proper position
 	}
 	
 	@Override
