@@ -39,7 +39,7 @@ public class GameScreen extends ScreenAdapter {
 		
 		Reflector[] reflectors = new Reflector[8];
 		for(int i = 0; i < reflectors.length; i++) {
-			reflectors[i] = new Reflector(400, i); 
+			reflectors[i] = new Reflector(300, i); 
 			reflectors[i].setPosition(1920 / 2, 1080 / 2);
 			float angle = 45 * i; 
 			reflectors[i].setOrigin(0, reflectors[i].texture.getRegionHeight() / 2);
@@ -47,7 +47,7 @@ public class GameScreen extends ScreenAdapter {
 			reflectors[i].setY(reflectors[i].getY() + 150 * MathUtils.sinDeg(angle) - 40);
 			stage.addActor(reflectors[i]);
 		}
-		stage.addActor(new InputManager(this, reflectors));
+		new InputManager(this, reflectors);
 		
 		p1 = new Player(0, 10);
 		stage.addActor(p1);

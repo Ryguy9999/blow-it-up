@@ -1,5 +1,6 @@
 package com.fwumdesoft.blow;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
@@ -88,7 +89,9 @@ public class Missile extends DrawingActor implements Poolable {
 		bounds.setPosition(getX(), getY());
 		bounds.setRotation(getRotation());
 		if(getStage() != null && Math.random() <= 0.5f) {
-			Particle.spawnCluster(getStage(), 3, getX(), getY(), 0, -speed * MathUtils.cosDeg(getRotation()) * delta, -speed * MathUtils.sinDeg(getRotation()) * delta, 0.5f, 20, 5);
+			float x = getX() + getOriginX();
+			float y = getY() + getOriginY();
+			Particle.spawnCluster(getStage(), 3, x, y, 0, -speed * MathUtils.cosDeg(getRotation()) * delta, -speed * MathUtils.sinDeg(getRotation()) * delta, 0.5f, 20, 5, Color.ORANGE);
 		}
 	}
 
