@@ -80,6 +80,8 @@ public class Missile extends DrawingActor implements Poolable {
 		vPos.set(getX(), getY());
 		speed = 0;
 		lane = 0;
+		bounds.setPosition(getX(), getY());
+		bounds.setRotation(getRotation());
 	}
 
 	@Override
