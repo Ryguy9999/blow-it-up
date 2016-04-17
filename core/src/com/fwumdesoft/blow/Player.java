@@ -63,6 +63,9 @@ public class Player extends DrawingActor {
 				Missile m = (Missile)a;
 				if(Intersector.overlaps(bounds, m.bounds.getBoundingRectangle())) {
 					boolean dead = doDamage(m.damage);
+					if(dead) {
+						System.out.println("DEAD");
+					}
 					GameScreen.missilePool.free(m);
 					m.remove();
 				}
