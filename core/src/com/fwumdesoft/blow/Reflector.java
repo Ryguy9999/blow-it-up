@@ -22,15 +22,16 @@ public class Reflector extends DrawingActor {
 	}
 
 	public void launchMissile() {
-		Missile m1 = new Missile(1, getX(), getY(), lane); 
+		Missile m1 = new Missile(1, getX(), getY(), lane);
 		m1.speed = 50;
 		m1.setRotation(getRotation());
 		getStage().addActor(m1);
 	}
 
 	public void reflectMissile(Missile m) {
-		if (m.getRotation() != this.getRotation())
-			m.setRotation(m.getRotation() + 180);
+		if (!m.flipped) {
+			m.rotateBy(180);
+		}
 	}
 
 	public void reflectMissiles() {
@@ -38,7 +39,7 @@ public class Reflector extends DrawingActor {
 		for (Actor actor : actors) {
 			if (actor instanceof Missile) {
 				Missile m = (Missile) actor;
-				if (m.lane != lane) 
+				if (m.lane != lane)
 					continue;
 				System.out.println(Vector2.dst(getX(), getY(), m.getX(), m.getY()));
 				if (Vector2.dst(getX(), getY(), m.getX(), m.getY()) <= range) {
@@ -50,6 +51,6 @@ public class Reflector extends DrawingActor {
 
 	@Override
 	public void act(float delta) {
-
+		System.out.println(getOriginX() + " " + getOriginY());
 	}
 }

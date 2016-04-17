@@ -14,27 +14,34 @@ public class Missile extends DrawingActor implements Poolable {
 	public int damage;
 	public int lane;
 	public Polygon bounds;
+	public boolean flipped;
 	
+	public static final float DEFAULT_SPEED = 200;
+
 	private Vector2 vPos;
-	
+
 	/**
 	 * Instantiates a new Missile with a damage of 10 @ position (0, 0).
 	 */
 	public Missile() {
 		this(10, 0, 0, 0);
 	}
-	
+
 	/**
-	 * Instantiates a new Missile with a damage of 10 @ position (<tt>x</tt>, <tt>y</tt>).
+	 * Instantiates a new Missile with a damage of 10 @ position (<tt>x</tt>,
+	 * <tt>y</tt>).
+	 * 
 	 * @param x
 	 * @param y
 	 */
 	public Missile(float x, float y) {
 		this(10, x, y, 0);
 	}
-	
+
 	/**
-	 * Instantiates a new Missile with a damage of <tt>damage</tt> @ position (<tt>x</tt>, <tt>y</tt>).
+	 * Instantiates a new Missile with a damage of <tt>damage</tt> @ position (
+	 * <tt>x</tt>, <tt>y</tt>).
+	 * 
 	 * @param damage
 	 * @param x
 	 * @param y
@@ -44,7 +51,9 @@ public class Missile extends DrawingActor implements Poolable {
 	}
 
 	/**
-	 * Instantiates a new Missile with a damage of <tt>damage</tt> @ position (<tt>x</tt>, <tt>y</tt>) on lane <tt>lane</tt>.
+	 * Instantiates a new Missile with a damage of <tt>damage</tt> @ position (
+	 * <tt>x</tt>, <tt>y</tt>) on lane <tt>lane</tt>.
+	 * 
 	 * @param damage
 	 * @param x
 	 * @param y
@@ -55,9 +64,11 @@ public class Missile extends DrawingActor implements Poolable {
 		this.damage = damage;
 		setX(x);
 		setY(y);
+		setOrigin(texture.getRegionWidth() / 2, texture.getRegionHeight() / 2);
 		vPos = new Vector2(x, y);
 		this.lane = lane;
-		bounds = new Polygon(new float[] {0,0, getWidth(),0,  0,getHeight(), getWidth(),getHeight()});
+		bounds = new Polygon(new float[] { 0, 0, getWidth(), 0, 0, getHeight(), getWidth(), getHeight() });
+		flipped = false;
 	}
 
 	@Override
@@ -69,7 +80,7 @@ public class Missile extends DrawingActor implements Poolable {
 		speed = 0;
 		lane = 0;
 	}
-	
+
 	@Override
 	public void act(float delta) {
 		setX(getX() + speed * MathUtils.cosDeg(getRotation()) * delta);
@@ -77,14 +88,15 @@ public class Missile extends DrawingActor implements Poolable {
 		bounds.setPosition(getX(), getY());
 		bounds.setRotation(getRotation());
 	}
-	
+
 	/**
-	 * @return the vector representation of the bottom-left corner of this Missile object.
+	 * @return the vector representation of the bottom-left corner of this
+	 *         Missile object.
 	 */
 	public Vector2 getVectorPos() {
 		return vPos.set(getX(), getY());
 	}
-	
+
 	@Override
 	public String toString() {
 		return "{name: Missle}";

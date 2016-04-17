@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -35,11 +36,15 @@ public class GameScreen extends ScreenAdapter {
 		for(int i = 0; i < reflectors.length; i++) {
 			reflectors[i] = new Reflector(400, i); 
 			reflectors[i].setPosition(1920 / 2, 1080 / 2);
+			float angle = 45 * i; 
+			reflectors[i].setOrigin(0, 64);
+			reflectors[i].setX(reflectors[i].getX() + 100 * MathUtils.cosDeg(angle));
+			reflectors[i].setY(reflectors[i].getY() + 100 * MathUtils.sinDeg(angle));
 			stage.addActor(reflectors[i]);
 		}
 		stage.addActor(new InputManager(this, reflectors));
 		
-		Player p1 = new Player(0, 10);
+		Player p1 = new Player(0, 10); //Debug player :(
 		stage.addActor(p1);
 		
 		Missile m1 = new Missile(10, 0); //Debug Missile :)
@@ -48,6 +53,14 @@ public class GameScreen extends ScreenAdapter {
 		m1.setY(1080 / 2);
 		m1.setX(1920);
 		stage.addActor(m1);
+	}
+	
+	private void spawnMissile(int lane) {
+		Missile m = missilePool.obtain();
+		m.lane = lane;
+		m.setRotation(lane * 45 + 180);
+		m.speed = Missile.DEFAULT_SPEED;
+		//TODO give the missile a proper position
 	}
 	
 	@Override
