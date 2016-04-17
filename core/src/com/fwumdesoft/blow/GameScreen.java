@@ -100,7 +100,6 @@ public class GameScreen extends ScreenAdapter {
 		if(shaking) {
 			totalShakeTime -= delta;
 			timeOnShake -= delta;
-			System.out.println(totalShakeTime);
 			if(totalShakeTime < 0)
 				shaking = false;
 			if(timeOnShake < 0) {
