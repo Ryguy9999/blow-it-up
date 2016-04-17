@@ -62,12 +62,11 @@ public class GameScreen extends ScreenAdapter {
 	
 	
 	private void spawnMissile(int lane) {
-		System.out.println(lane);
 		final int SPAWN_DISTANCE = 970;
-		Missile m = missilePool.obtain();
+		Missile m = new Missile();
 		m.lane = lane;
-		m.setX(p1.getX() + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
-		m.setY(p1.getY() + 32 + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
+		m.setX(1920 / 2 + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
+		m.setY(1080 / 2  + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
 		m.setRotation((lane * 45 + 180) % 360);
 		m.speed = Missile.DEFAULT_SPEED;
 		stage.addActor(m);
