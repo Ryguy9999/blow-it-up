@@ -60,7 +60,7 @@ public class GameScreen extends ScreenAdapter {
 	
 	
 	private void spawnMissile(int lane) {
-		final int SPAWN_DISTANCE = 600;
+		final int SPAWN_DISTANCE = 970;
 		Missile m = missilePool.obtain();
 		m.lane = lane;
 		m.setX(p1.getX() + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
