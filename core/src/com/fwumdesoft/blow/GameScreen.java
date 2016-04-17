@@ -54,11 +54,11 @@ public class GameScreen extends ScreenAdapter {
 		
 		for(int i = 0; i < 8; i++)
 			spawnMissile(i);
-		
-		Music music = Gdx.audio.newMusic(Gdx.files.internal("music/song1.wav"));
-		music.play();
-		music.setVolume(1);
-		music.setLooping(true); 
+//		TODO: FIX THIS
+//		Music music = Gdx.audio.newMusic(Gdx.files.internal("music/song1.wav"));
+//		music.play();
+//		music.setVolume(1);
+//		music.setLooping(true); 
 	}
 	
 	
