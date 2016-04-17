@@ -57,9 +57,8 @@ public class Reflector extends DrawingActor {
 				Missile m = (Missile) actor;
 				if (m.lane != lane)
 					continue;
-				if (Vector2.dst(getX(), getY(), m.getX(), m.getY()) <= range) {
-					reflectMissile(m);
-				}
+				reflectMissile(m);
+				//break;
 			}
 		}
 	}
