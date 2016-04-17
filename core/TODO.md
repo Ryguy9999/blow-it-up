@@ -4,7 +4,7 @@
  
  - Add heart overlay
  
- - Slowdown on hit
+ - Slowdown on hit (Slowmo sound)
  
  - Heart shattering on hit
  

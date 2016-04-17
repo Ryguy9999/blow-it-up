@@ -2,6 +2,7 @@ package com.fwumdesoft.blow;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,6 +24,7 @@ public class GameScreen extends ScreenAdapter {
 	private Camera camera;
 	private static boolean shaking;
 	private static float timeOnShake, totalShakeTime, shakeX, shakeY;
+	public static int slowdownRemaining = 0;
 	
 	public static Pool<Missile> missilePool;
 	
@@ -74,34 +76,38 @@ public class GameScreen extends ScreenAdapter {
 	public void render (float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.act(delta);
-		if(shaking)
-		{
-			totalShakeTime -= delta;
-			timeOnShake -= delta;
-			if(totalShakeTime < 0)
-				shaking = false;
-			if(timeOnShake < 0)
+		if(slowdownRemaining % 5 == 0) {
+			stage.act(delta);
+			if(shaking)
 			{
-				shakeX += (Math.random() - 0.5f) * (Math.random() * 3);
-				shakeY += (Math.random() - 0.5f) * (Math.random() * 3);
+				totalShakeTime -= delta;
+				timeOnShake -= delta;
+				if(totalShakeTime < 0)
+					shaking = false;
+				if(timeOnShake < 0)
+				{
+					shakeX += (Math.random() - 0.5f) * (Math.random() * 3);
+					shakeY += (Math.random() - 0.5f) * (Math.random() * 3);
+				}
+	//			shakeDistance.add(shakeDirection);
+				camera.position.set(1920 / 2 + shakeX, 1080 / 2 + shakeY, 0);
+				camera.position.set(MathUtils.lerp(camera.position.x, 1920 / 2, (float) Math.random()), MathUtils.lerp(camera.position.y, 1080 / 2, (float) Math.random()), 0);
 			}
-//			shakeDistance.add(shakeDirection);
-			camera.position.set(1920 / 2 + shakeX, 1080 / 2 + shakeY, 0);
-			camera.position.set(MathUtils.lerp(camera.position.x, 1920 / 2, (float) Math.random()), MathUtils.lerp(camera.position.y, 1080 / 2, (float) Math.random()), 0);
+			else 
+			{
+				camera.position.set(MathUtils.lerp(camera.position.x, 1920 / 2, 0.5f), MathUtils.lerp(camera.position.y, 1080 / 2, 0.5f), 0);
+			}
+			time += delta;
+			//spawn missile logic
+			if(time >= 1 && Math.random() < 1.0/3.0)
+			{
+				time -= 1.0;
+				int lane = (int)(Math.random()*8);
+				spawnMissile(lane);
+			}
 		}
-		else 
-		{
-			camera.position.set(MathUtils.lerp(camera.position.x, 1920 / 2, 0.5f), MathUtils.lerp(camera.position.y, 1080 / 2, 0.5f), 0);
-		}
-		time += delta;
-		//spawn missile logic
-		if(time >= 1 && Math.random() < 1.0/3.0)
-		{
-			time -= 1.0;
-			int lane = (int)(Math.random()*8);
-			spawnMissile(lane);
-		}
+		if(slowdownRemaining > 0)
+			slowdownRemaining--;
 		stage.draw();
 	}
 	
