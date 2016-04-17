@@ -34,6 +34,7 @@ public class Reflector extends DrawingActor {
 			m.rotateBy(180);
 			m.speed *= 5;
 			m.flipped = true;
+			GameScreen.rotateCamera(false);
 		}
 	}
 

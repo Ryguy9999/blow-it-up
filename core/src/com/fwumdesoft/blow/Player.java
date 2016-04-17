@@ -52,6 +52,7 @@ public class Player extends DrawingActor {
 	 */
 	public boolean doDamage(int dmg) {
 		health -= dmg;
+		GameScreen.rotateCamera(true);
 		return health <= 0;
 	}
 	

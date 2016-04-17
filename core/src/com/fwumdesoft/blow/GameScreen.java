@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -25,12 +26,16 @@ public class GameScreen extends ScreenAdapter {
 	final float WORLD_WIDTH = 1920, WORLD_HEIGHT = 1080;
 	int playerNumber = 0;
 	boolean isAttacking = false;
+	private Camera camera;
+	private static boolean shaking;
+	private static Vector3 shakeDirection, shakeDistance;
+	private static float timeOnShake, totalShakeTime, shakeX, shakeY;
 	
 	public static Pool<Missile> missilePool;
 	
 	public GameScreen() {
 		batch = new SpriteBatch();
-		Camera camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Viewport viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 		stage = new Stage(viewport, batch);
 		
@@ -56,7 +61,6 @@ public class GameScreen extends ScreenAdapter {
 		
 		for(int i = 0; i < 8; i++)
 			spawnMissile(i);
-		
 		//Randomly select a song
 		Runnable musicRunnable = () -> {
 			try {
@@ -70,7 +74,6 @@ public class GameScreen extends ScreenAdapter {
 		};
 		
 		new Thread(musicRunnable).start();
-		
 	}
 	
 	
@@ -87,9 +90,39 @@ public class GameScreen extends ScreenAdapter {
 	
 	@Override
 	public void render (float delta) {
-		Gdx.gl.glClearColor(0, 1, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
+		if(shaking)
+		{
+			totalShakeTime -= delta;
+			timeOnShake -= delta;
+			System.out.println(totalShakeTime);
+			if(totalShakeTime < 0)
+				shaking = false;
+			if(timeOnShake < 0)
+			{
+				shakeX += (Math.random() - 0.5f) * 3;
+				shakeY += (Math.random() - 0.5f) * 3;
+			}
+//			shakeDistance.add(shakeDirection);
+			camera.position.set(1920 / 2 + shakeX, 1080 / 2 + shakeY, 0);
+		}
+		else 
+		{
+			camera.position.set(1920 / 2, 1080 / 2, 0);
+		}
 		stage.draw();
+	}
+	
+	public static void rotateCamera(boolean strong)
+	{
+		shaking = true;
+		shakeDistance = new Vector3(0, 0, 0);
+		if(strong)
+			totalShakeTime = 2;
+		else
+			totalShakeTime = 1;
+				
 	}
 }
