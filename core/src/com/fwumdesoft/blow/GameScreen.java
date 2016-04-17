@@ -53,13 +53,8 @@ public class GameScreen extends ScreenAdapter {
 		Player p1 = new Player(0, 10); //Debug player :(
 		stage.addActor(p1);
 		
-		spawnMissile(2);
-		Missile m1 = new Missile(10, 0); //Debug Missile :)
-		m1.speed = 200;
-		m1.setRotation(180);
-		m1.setY(1080 / 2);
-		m1.setX(1920);
-		stage.addActor(m1);
+		for(int i = 0; i < 8; i++)
+			spawnMissile(i);
 		
 		//Randomly select a song
 		Runnable musicRunnable = () -> {
@@ -83,8 +78,8 @@ public class GameScreen extends ScreenAdapter {
 		Missile m = missilePool.obtain();
 		m.lane = lane;
 		m.setRotation(lane * 45 + 180);
-		m.setX(1920 / 2 + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
-		m.setY(1080 / 2 + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
+		m.setX(1920 / 2 - 48 + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
+		m.setY(1080 / 2 - 48 + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
 		m.speed = Missile.DEFAULT_SPEED;
 		stage.addActor(m);
 	}
