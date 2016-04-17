@@ -11,7 +11,7 @@ public class Reflector extends DrawingActor {
 	public int lane;
 
 	public Reflector(int lane) {
-		this(10, lane);
+		this(400, lane);
 	}
 
 	public Reflector(float range, int lane) {
@@ -38,8 +38,9 @@ public class Reflector extends DrawingActor {
 		for (Actor actor : actors) {
 			if (actor instanceof Missile) {
 				Missile m = (Missile) actor;
-				if (m.lane != lane)
+				if (m.lane != lane) 
 					continue;
+				System.out.println(Vector2.dst(getX(), getY(), m.getX(), m.getY()));
 				if (Vector2.dst(getX(), getY(), m.getX(), m.getY()) <= range) {
 					reflectMissile(m);
 				}

@@ -31,7 +31,7 @@ public class GameScreen extends ScreenAdapter {
 		
 		Reflector[] reflectors = new Reflector[8];
 		for(int i = 0; i < reflectors.length; i++) {
-			reflectors[i] = new Reflector(50, i); 
+			reflectors[i] = new Reflector(400, i); 
 			reflectors[i].setPosition(1920 / 2, 1080 / 2);
 			stage.addActor(reflectors[i]);
 		}
