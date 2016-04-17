@@ -57,10 +57,11 @@ public class Player extends DrawingActor {
 	public boolean doDamage(int dmg) {
 		Sound sound = BlowItUp.assets.get("music/explosion.mp3", Sound.class);
 		sound.play();
-		Particle.spawnCluster(getStage(), 100, getX() + getOriginX(), getY() + getOriginY(), 50, 0, 0, 10, 45, 30, Color.RED);
+		Particle.spawnCluster(getStage(), 100, getX() + getOriginX(), getY() + getOriginY(), 50, 0, 0, 10, 45, 30, Color.RED, false);
 		health -= dmg;
 		GameScreen.slowdownRemaining = 60;
 		GameScreen.rotateCamera(true);
+		Particle.spawnCluster(getStage(), 30, 20 + health * 32 + 16, 26, 5, 0, 0, 7.5f, 50, 25, Color.RED, false);
 		return health <= 0;
 	}
 	
@@ -73,7 +74,7 @@ public class Player extends DrawingActor {
 				if(overlaps(m.bounds, bounds)) {
 					boolean dead = doDamage(m.damage);
 					if(dead) {
-						BlowItUp.game.setScreen(new GameOverScreen());
+						GameScreen.up.setScreen(new GameOverScreen());
 					}
 					GameScreen.missilePool.free(m);
 					m.remove();
@@ -81,7 +82,7 @@ public class Player extends DrawingActor {
 			}
 		}
 	}
-	
+
 	public boolean overlaps(Polygon polygon, Circle circle) {
 	    float []vertices=polygon.getTransformedVertices();
 	    Vector2 center=new Vector2(circle.x, circle.y);

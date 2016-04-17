@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -29,7 +30,10 @@ public class GameScreen extends ScreenAdapter {
 	
 	public static Pool<Missile> missilePool;
 	
-	public GameScreen() {
+	static BlowItUp up;
+	
+	public GameScreen(BlowItUp upVar) {
+		up = upVar;
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Viewport viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
@@ -63,11 +67,11 @@ public class GameScreen extends ScreenAdapter {
 	
 	private void spawnMissile(int lane) {
 		final int SPAWN_DISTANCE = 970;
-		Missile m = missilePool.obtain();
+		Missile m = new Missile();
 		m.lane = lane;
-		m.setX(p1.getX() + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
-		m.setY(p1.getY() + 32 + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
-		m.setRotation(lane * 45 + 180);
+		m.setX(1920 / 2 - 64 + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
+		m.setY(1080 / 2 - 32 + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
+		m.setRotation((lane * 45 + 180) % 360);
 		m.speed = Missile.DEFAULT_SPEED;
 		stage.addActor(m);
 	}
@@ -110,6 +114,11 @@ public class GameScreen extends ScreenAdapter {
 		if(slowdownRemaining > 0)
 			slowdownRemaining--;
 		stage.draw();
+		
+		stage.getBatch().begin();
+		for(int i = 0; i < p1.getHealth(); i++)
+			stage.getBatch().draw(BlowItUp.assets.get("heart.png", Texture.class), 20 + i * 32, 20);
+		stage.getBatch().end();
 	}
 	
 	public static void rotateCamera(boolean strong)

@@ -25,7 +25,7 @@ public class Missile extends DrawingActor implements Poolable {
 	 * Instantiates a new Missile with a damage of 10 @ position (0, 0).
 	 */
 	public Missile() {
-		this(10, 0, 0, 0);
+		this(1, 0, 0, 0);
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class Missile extends DrawingActor implements Poolable {
 	 * @param y
 	 */
 	public Missile(float x, float y) {
-		this(10, x, y, 0);
+		this(1, x, y, 0);
 	}
 
 	/**
@@ -74,16 +74,19 @@ public class Missile extends DrawingActor implements Poolable {
 
 	@Override
 	public void reset() {
-		damage = 10;
+		damage = 1;
 		setX(0);
 		setY(0);
 		vPos.set(getX(), getY());
 		speed = 0;
 		lane = 0;
+		bounds.setPosition(getX(), getY());
+		bounds.setRotation(getRotation());
 	}
 
 	@Override
 	public void act(float delta) {
+		if(getStage() == null) return;
 		setX(getX() + speed * MathUtils.cosDeg(getRotation()) * delta);
 		setY(getY() + speed * MathUtils.sinDeg(getRotation()) * delta);
 		bounds.setPosition(getX(), getY());
@@ -91,7 +94,11 @@ public class Missile extends DrawingActor implements Poolable {
 		if(getStage() != null && Math.random() <= 0.5f) {
 			float x = getX() + getOriginX();
 			float y = getY() + getOriginY();
-			Particle.spawnCluster(getStage(), 3, x, y, 0, -speed * MathUtils.cosDeg(getRotation()) * delta, -speed * MathUtils.sinDeg(getRotation()) * delta, 0.5f, 20, 5, Color.ORANGE);
+			Particle.spawnCluster(getStage(), 3, x, y, 0, -speed * MathUtils.cosDeg(getRotation()) * delta, -speed * MathUtils.sinDeg(getRotation()) * delta, 0.5f, 20, 5, Color.ORANGE, false);
+		}
+		if(flipped && ((getX() < 0 || getX() > getStage().getWidth()) ||  (getY() < 0 || getY() > getStage().getHeight()))) {
+			GameScreen.missilePool.free(this);
+			remove();
 		}
 	}
 
