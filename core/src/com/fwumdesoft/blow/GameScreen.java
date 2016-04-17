@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -29,7 +28,6 @@ public class GameScreen extends ScreenAdapter {
 	Player p1;
 	private Camera camera;
 	private static boolean shaking;
-	private static Vector3 shakeDirection, shakeDistance;
 	private static float timeOnShake, totalShakeTime, shakeX, shakeY;
 	
 	public static Pool<Missile> missilePool;
@@ -76,7 +74,10 @@ public class GameScreen extends ScreenAdapter {
 		new Thread(musicRunnable).start();
 	}
 	
-	
+	/**
+	 * Spawns a missile in <tt>lane</tt>.
+	 * @param lane
+	 */
 	private void spawnMissile(int lane) {
 		final int SPAWN_DISTANCE = 600;
 		Missile m = missilePool.obtain();
@@ -94,29 +95,28 @@ public class GameScreen extends ScreenAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
-		if(shaking)
-		{
+		
+		//shake the screen when player is hit
+		if(shaking) {
 			totalShakeTime -= delta;
 			timeOnShake -= delta;
 			System.out.println(totalShakeTime);
 			if(totalShakeTime < 0)
 				shaking = false;
-			if(timeOnShake < 0)
-			{
+			if(timeOnShake < 0) {
 				shakeX += (Math.random() - 0.5f) * 3;
 				shakeY += (Math.random() - 0.5f) * 3;
 			}
 //			shakeDistance.add(shakeDirection);
 			camera.position.set(1920 / 2 + shakeX, 1080 / 2 + shakeY, 0);
 		}
-		else 
-		{
+		else {
 			camera.position.set(1920 / 2, 1080 / 2, 0);
 		}
 		time += delta;
+		
 		//spawn missile logic
-		if(time >= 1 && Math.random() < 1.0/3.0)
-		{
+		if(time >= 1 && Math.random() < 1.0/3.0) {
 			time -= 1.0;
 			int lane = (int)(Math.random()*8);
 			spawnMissile(lane);
@@ -124,14 +124,12 @@ public class GameScreen extends ScreenAdapter {
 		stage.draw();
 	}
 	
-	public static void rotateCamera(boolean strong)
-	{
+	public static void rotateCamera(boolean strong) {
 		shaking = true;
-		shakeDistance = new Vector3(0, 0, 0);
 		if(strong)
-			totalShakeTime = 2;
-		else
 			totalShakeTime = 1;
+		else
+			totalShakeTime = 0.5f;
 				
 	}
 }
