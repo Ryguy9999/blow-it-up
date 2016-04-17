@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
@@ -47,6 +48,7 @@ public class GameScreen extends ScreenAdapter {
 		Player p1 = new Player(0, 10); //Debug player :(
 		stage.addActor(p1);
 		
+		spawnMissile(2);
 		Missile m1 = new Missile(10, 0); //Debug Missile :)
 		m1.speed = 200;
 		m1.setRotation(180);
@@ -55,12 +57,16 @@ public class GameScreen extends ScreenAdapter {
 		stage.addActor(m1);
 	}
 	
+	
 	private void spawnMissile(int lane) {
+		final int SPAWN_DISTANCE = 600;
 		Missile m = missilePool.obtain();
 		m.lane = lane;
 		m.setRotation(lane * 45 + 180);
+		m.setX(1920 / 2 + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
+		m.setY(1080 / 2 + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
 		m.speed = Missile.DEFAULT_SPEED;
-		//TODO give the missile a proper position
+		stage.addActor(m);
 	}
 	
 	@Override
