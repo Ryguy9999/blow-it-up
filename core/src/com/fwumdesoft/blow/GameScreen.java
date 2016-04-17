@@ -43,9 +43,9 @@ public class GameScreen extends ScreenAdapter {
 			reflectors[i] = new Reflector(400, i); 
 			reflectors[i].setPosition(1920 / 2, 1080 / 2);
 			float angle = 45 * i; 
-			reflectors[i].setOrigin(0, 64);
-			reflectors[i].setX(reflectors[i].getX() + 100 * MathUtils.cosDeg(angle));
-			reflectors[i].setY(reflectors[i].getY() + 100 * MathUtils.sinDeg(angle) - 40);
+			reflectors[i].setOrigin(0, reflectors[i].texture.getRegionHeight() / 2);
+			reflectors[i].setX(reflectors[i].getX() + 150 * MathUtils.cosDeg(angle));
+			reflectors[i].setY(reflectors[i].getY() + 150 * MathUtils.sinDeg(angle) - 40);
 			stage.addActor(reflectors[i]);
 		}
 		stage.addActor(new InputManager(this, reflectors));
@@ -53,12 +53,8 @@ public class GameScreen extends ScreenAdapter {
 		Player p1 = new Player(0, 10); //Debug player :(
 		stage.addActor(p1);
 		
-		Missile m1 = new Missile(10, 0); //Debug Missile :)
-		m1.speed = 200;
-		m1.setRotation(180);
-		m1.setY(1080 / 2);
-		m1.setX(1920);
-		stage.addActor(m1);
+		for(int i = 0; i < 8; i++)
+			spawnMissile(i);
 		
 		//Randomly select a song
 		Runnable musicRunnable = () -> {
@@ -76,12 +72,16 @@ public class GameScreen extends ScreenAdapter {
 		
 	}
 	
+	
 	private void spawnMissile(int lane) {
+		final int SPAWN_DISTANCE = 600;
 		Missile m = missilePool.obtain();
 		m.lane = lane;
 		m.setRotation(lane * 45 + 180);
+		m.setX(1920 / 2 - 48 + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
+		m.setY(1080 / 2 - 48 + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
 		m.speed = Missile.DEFAULT_SPEED;
-		//TODO give the missile a proper position
+		stage.addActor(m);
 	}
 	
 	@Override
