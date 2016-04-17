@@ -15,7 +15,7 @@ public class Reflector extends DrawingActor {
 	}
 
 	public Reflector(float range, int lane) {
-		super(BlowItUp.assets.get("Reflector.png", Texture.class));
+		super(BlowItUp.assets.get("reflector.png", Texture.class));
 		this.range = range;
 		this.lane = lane;
 		setRotation(lane * 45);
