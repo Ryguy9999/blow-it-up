@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -104,6 +105,11 @@ public class GameScreen extends ScreenAdapter {
 			spawnMissile(lane);
 		}
 		stage.draw();
+		
+		stage.getBatch().begin();
+		for(int i = 0; i < p1.getHealth(); i++)
+			stage.getBatch().draw(BlowItUp.assets.get("heart.png", Texture.class), 20 + i * 32, 20);
+		stage.getBatch().end();
 	}
 	
 	public static void rotateCamera(boolean strong)

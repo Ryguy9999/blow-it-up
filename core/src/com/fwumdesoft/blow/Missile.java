@@ -25,7 +25,7 @@ public class Missile extends DrawingActor implements Poolable {
 	 * Instantiates a new Missile with a damage of 10 @ position (0, 0).
 	 */
 	public Missile() {
-		this(10, 0, 0, 0);
+		this(1, 0, 0, 0);
 	}
 
 	/**
