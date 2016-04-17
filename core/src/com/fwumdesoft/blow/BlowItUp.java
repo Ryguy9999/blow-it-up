@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class BlowItUp extends Game {
 	
 	public static AssetManager assets;
+	public static Game game;
 	
 	@Override
 	public void create () {
@@ -21,6 +22,8 @@ public class BlowItUp extends Game {
 		assets.load("music/emp.wav", Sound.class);
 		assets.load("music/explosion.mp3", Sound.class);
 		assets.finishLoading();
+		
+		game = this;
 		
 		setScreen(new GameScreen());
 	}
