@@ -36,7 +36,7 @@ public class Missile extends DrawingActor implements Poolable {
 	 * @param y
 	 */
 	public Missile(float x, float y) {
-		this(10, x, y, 0);
+		this(1, x, y, 0);
 	}
 
 	/**
