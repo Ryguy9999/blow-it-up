@@ -38,7 +38,6 @@ public class GameScreen extends ScreenAdapter {
 		stage.addActor(new BackgroundActor());
 		
 		missilePool = Pools.get(Missile.class); //max missiles in pool = 100
-		stage.addActor(new MissileSpawningActor(missilePool));
 		
 		Reflector[] reflectors = new Reflector[8];
 		for(int i = 0; i < reflectors.length; i++) {
@@ -54,9 +53,6 @@ public class GameScreen extends ScreenAdapter {
 		
 		p1 = new Player(0, 10); //Debug player :(
 		stage.addActor(p1);
-		
-		for(int i = 0; i < 8; i++)
-			spawnMissile(i);
 		
 		//Randomly select a song
 		Runnable musicRunnable = () -> {
@@ -91,6 +87,12 @@ public class GameScreen extends ScreenAdapter {
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
+		//spawn missile logic
+		if(Math.random() < 0.02)
+		{
+			int lane = (int)(Math.random()*8);
+			spawnMissile(lane);
+		}
 		stage.draw();
 	}
 }
