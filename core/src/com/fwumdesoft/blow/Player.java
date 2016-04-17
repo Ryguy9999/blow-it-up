@@ -3,6 +3,8 @@ package com.fwumdesoft.blow;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Player extends DrawingActor {
@@ -51,6 +53,7 @@ public class Player extends DrawingActor {
 	 * @return true if the player is dead (0 or less health), false otherwise
 	 */
 	public boolean doDamage(int dmg) {
+		Particle.spawnCluster(getStage(), 100, getX() + getOriginX(), getY() + getOriginY(), 50, 0, 0, 10, 45, 30);
 		health -= dmg;
 		GameScreen.rotateCamera(true);
 		return health <= 0;
@@ -62,7 +65,7 @@ public class Player extends DrawingActor {
 		for(Actor a : getStage().getActors()) {
 			if(a instanceof Missile) {
 				Missile m = (Missile)a;
-				if(Intersector.overlaps(bounds, m.bounds.getBoundingRectangle())) {
+				if(overlaps(m.bounds, bounds)) {
 					boolean dead = doDamage(m.damage);
 					if(dead) {
 //						System.out.println("DEAD");
@@ -72,5 +75,21 @@ public class Player extends DrawingActor {
 				}
 			}
 		}
+	}
+	
+	public boolean overlaps(Polygon polygon, Circle circle) {
+	    float []vertices=polygon.getTransformedVertices();
+	    Vector2 center=new Vector2(circle.x, circle.y);
+	    float squareRadius=circle.radius*circle.radius;
+	    for (int i=0;i<vertices.length;i+=2){
+	        if (i==0){
+	            if (Intersector.intersectSegmentCircle(new Vector2(vertices[vertices.length-2], vertices[vertices.length-1]), new Vector2(vertices[i], vertices[i+1]), center, squareRadius))
+	                return true;
+	        } else {
+	            if (Intersector.intersectSegmentCircle(new Vector2(vertices[i-2], vertices[i-1]), new Vector2(vertices[i], vertices[i+1]), center, squareRadius))
+	                return true;
+	        }
+	    }
+	    return false;
 	}
 }
