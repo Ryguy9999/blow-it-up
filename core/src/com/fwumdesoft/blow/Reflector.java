@@ -33,6 +33,7 @@ public class Reflector extends DrawingActor {
 			//TODO: Change speed by quality of reflect
 			m.rotateBy(180);
 			m.speed *= 5;
+			m.flipped = true;
 		}
 	}
 
