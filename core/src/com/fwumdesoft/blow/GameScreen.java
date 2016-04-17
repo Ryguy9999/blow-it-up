@@ -37,7 +37,7 @@ public class GameScreen extends ScreenAdapter {
 		}
 		stage.addActor(new InputManager(this, reflectors));
 		
-		Player p1 = new Player(0, 10);
+		Player p1 = new Player(0, 10); //Debug player :(
 		stage.addActor(p1);
 		
 		Missile m1 = new Missile(10, 0); //Debug Missile :)
@@ -46,6 +46,12 @@ public class GameScreen extends ScreenAdapter {
 		m1.setY(1080 / 2);
 		m1.setX(1920);
 		stage.addActor(m1);
+	}
+	
+	private void spawnMissile(int lane) {
+		Missile m = missilePool.obtain();
+		m.lane = lane;
+		m.setRotation(lane * 45 + 180);
 	}
 	
 	@Override
