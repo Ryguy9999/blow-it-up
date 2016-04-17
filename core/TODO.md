@@ -9,19 +9,17 @@
 
 - Reflector class with position, range, and trigger effects 
 
-**In Progress**:
-
-**Assignee**: Jason
-
-- Storing two different players
-
-- Keyboard input
-
 - Controller input
 
 - Attack phase
 
 - Defense phase
+
+**In Progress**:
+
+**Assignee**: Jason
+
+- Keyboard input
 
 - Switching between players
 
@@ -111,6 +109,11 @@
 
 **Assignee**: Ryan G
 
-- Register keyboard input
+**Complete**:
 
 - Register controller input
+
+**In progress**:
+
+- Register keyboard input
+
