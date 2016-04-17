@@ -29,8 +29,11 @@ public class Reflector extends DrawingActor {
 	}
 
 	public void reflectMissile(Missile m) {
-		if (m.getRotation() != this.getRotation())
-			m.setRotation(m.getRotation() + 180);
+		if (m.speed > 0)
+		{
+			m.speed *= -1;
+			m.rotateBy(180);
+		}
 	}
 
 	public void reflectMissiles() {
@@ -50,6 +53,6 @@ public class Reflector extends DrawingActor {
 
 	@Override
 	public void act(float delta) {
-
+		System.out.println(getOriginX() + " " + getOriginY());
 	}
 }
