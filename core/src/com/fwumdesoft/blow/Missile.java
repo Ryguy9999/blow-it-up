@@ -84,6 +84,7 @@ public class Missile extends DrawingActor implements Poolable {
 
 	@Override
 	public void act(float delta) {
+		if(getStage() == null) return;
 		setX(getX() + speed * MathUtils.cosDeg(getRotation()) * delta);
 		setY(getY() + speed * MathUtils.sinDeg(getRotation()) * delta);
 		bounds.setPosition(getX(), getY());
@@ -91,7 +92,11 @@ public class Missile extends DrawingActor implements Poolable {
 		if(getStage() != null && Math.random() <= 0.5f) {
 			float x = getX() + getOriginX();
 			float y = getY() + getOriginY();
-			Particle.spawnCluster(getStage(), 3, x, y, 0, -speed * MathUtils.cosDeg(getRotation()) * delta, -speed * MathUtils.sinDeg(getRotation()) * delta, 0.5f, 20, 5, Color.ORANGE);
+			Particle.spawnCluster(getStage(), 3, x, y, 0, -speed * MathUtils.cosDeg(getRotation()) * delta, -speed * MathUtils.sinDeg(getRotation()) * delta, 0.5f, 20, 5, Color.ORANGE, false);
+		}
+		if(flipped && ((getX() < 0 || getX() > getStage().getWidth()) ||  (getY() < 0 || getY() > getStage().getHeight()))) {
+			GameScreen.missilePool.free(this);
+			remove();
 		}
 	}
 
