@@ -15,16 +15,17 @@ public class InputManager extends Actor {
 	int tickCooldown;
 	GameScreen screen;
 	final int maxTick = 30;
-	
+
 	public InputManager(GameScreen screen, final Reflector... reflectors) {
 		this.screen = screen;
 		ControllerListener controllerListen = new ControllerAdapter() {
 
 			@Override
 			public boolean buttonDown(Controller controller, int buttonCode) {
-				if(tickCooldown > 0) return false;
+				if (tickCooldown > 0)
+					return false;
 				tickCooldown = maxTick;
-				switch(buttonCode) {
+				switch (buttonCode) {
 				case 0:
 					trigger(reflectors[1]);
 					break;
@@ -36,15 +37,19 @@ public class InputManager extends Actor {
 					break;
 				case 3:
 					trigger(reflectors[3]);
+					break;
+				default:
+					return false;
 				}
 				return true;
 			}
 
 			@Override
 			public boolean povMoved(Controller controller, int povCode, PovDirection value) {
-				if(tickCooldown > 0) return false;
+				if (tickCooldown > 0)
+					return false;
 				tickCooldown = maxTick;
-				switch(value) {
+				switch (value) {
 				case east:
 					trigger(reflectors[0]);
 					break;
@@ -58,7 +63,7 @@ public class InputManager extends Actor {
 					trigger(reflectors[4]);
 					break;
 				default:
-					break;
+					return false;
 				}
 				return true;
 			}
@@ -67,8 +72,44 @@ public class InputManager extends Actor {
 
 		InputAdapter inListen = new InputAdapter() {
 			public boolean keyDown(int keycode) {
-				System.out.println(keycode);
-				return false;
+				switch (keycode) {
+				case 32:
+				case 150:
+					trigger(reflectors[0]);
+					break;
+				case 33:
+				case 153:
+					trigger(reflectors[1]);
+					break;
+				case 51:
+				case 152:
+					trigger(reflectors[2]);
+					break;
+				case 45:
+				case 151:
+					trigger(reflectors[3]);
+					break;
+				case 29:
+				case 148:
+					trigger(reflectors[4]);
+					break;
+				case 54:
+				case 145:
+					trigger(reflectors[5]);
+					break;
+				case 52:
+				case 146:
+					trigger(reflectors[6]);
+					break;
+				case 31:
+				case 147:
+					trigger(reflectors[7]);
+					break;
+				default:
+					System.out.println(keycode);
+					return false;
+				}
+				return true;
 			}
 		};
 		Array<Controller> controllers = Controllers.getControllers();
@@ -79,15 +120,15 @@ public class InputManager extends Actor {
 		}
 		Gdx.input.setInputProcessor(inListen);
 	}
-	
+
 	@Override
 	public void act(float delta) {
-		if(tickCooldown > 0)
+		if (tickCooldown > 0)
 			tickCooldown--;
 	}
-	
+
 	private void trigger(Reflector reflector) {
-		if(screen.isAttacking) {
+		if (screen.isAttacking) {
 			reflector.launchMissile();
 		} else {
 			reflector.reflectMissiles();

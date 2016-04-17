@@ -1,6 +1,9 @@
 package com.fwumdesoft.blow;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Player extends DrawingActor {
@@ -8,6 +11,7 @@ public class Player extends DrawingActor {
 	private short health, maxHealth;
 	public float powerLevel;
 	public Texture texture;
+	public Circle bounds;
 
 	/**
 	 * Constructs the player
@@ -20,6 +24,9 @@ public class Player extends DrawingActor {
 		maxHealth = this.health = health;
 		powerLevel = 0;
 		texture = null;
+		setX(Gdx.graphics.getWidth()/2);
+		setY(Gdx.graphics.getHeight()/2);
+		bounds = new Circle(getX(), getY(), 100);
 	}
 
 	public short getHealth() {
@@ -45,7 +52,7 @@ public class Player extends DrawingActor {
 	 * @param dmg The amount to reduce health by
 	 * @return true if the player is dead (0 or less health), false otherwise
 	 */
-	public boolean doDamage(short dmg) {
+	public boolean doDamage(int dmg) {
 		health -= dmg;
 		return health <= 0;
 	}
@@ -56,6 +63,11 @@ public class Player extends DrawingActor {
 		for(Actor a : getStage().getActors()) {
 			if(a instanceof Missile) {
 				Missile m = (Missile)a;
+				if(Intersector.overlaps(bounds, m.bounds.getBoundingRectangle())) {
+					boolean dead = doDamage(m.damage);
+					GameScreen.missilePool.free(m);
+					m.remove();
+				}
 			}
 		}
 	}
