@@ -10,11 +10,12 @@ import com.badlogic.gdx.utils.Pool.Poolable;
  * Represents a Missile that each player must reflect in order to survive.
  */
 public class Missile extends DrawingActor implements Poolable {
-	public float damage, speed;
+	public float speed;
+	public int damage;
 	public int lane;
+	public Polygon bounds;
 	
 	private Vector2 vPos;
-	private Polygon bounds;
 	
 	/**
 	 * Instantiates a new Missile with a damage of 10 @ position (0, 0).
@@ -38,7 +39,7 @@ public class Missile extends DrawingActor implements Poolable {
 	 * @param x
 	 * @param y
 	 */
-	public Missile(float damage, float x, float y) {
+	public Missile(int damage, float x, float y) {
 		this(damage, x, y, 0);
 	}
 
@@ -49,7 +50,7 @@ public class Missile extends DrawingActor implements Poolable {
 	 * @param y
 	 * @param lane
 	 */
-	public Missile(float damage, float x, float y, int lane) {
+	public Missile(int damage, float x, float y, int lane) {
 		super(BlowItUp.assets.get("missile.png", Texture.class));
 		this.damage = damage;
 		setX(x);
@@ -73,6 +74,8 @@ public class Missile extends DrawingActor implements Poolable {
 	public void act(float delta) {
 		setX(getX() + speed * MathUtils.cosDeg(getRotation()) * delta);
 		setY(getY() + speed * MathUtils.sinDeg(getRotation()) * delta);
+		bounds.setPosition(getX(), getY());
+		bounds.setRotation(getRotation());
 	}
 	
 	/**
