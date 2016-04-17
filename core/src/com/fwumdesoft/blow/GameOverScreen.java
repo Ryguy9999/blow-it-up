@@ -1,5 +1,7 @@
 package com.fwumdesoft.blow;
 
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
@@ -30,6 +32,15 @@ public class GameOverScreen extends ScreenAdapter  {
 				batch.draw(gameOver, 0, 0);
 			}
 		});
+		new java.util.Timer().schedule( 
+		        new java.util.TimerTask() {
+		            @Override
+		            public void run() {
+		                System.exit(0);
+		            }
+		        }, 
+		        5000 
+		);
 	}
 	
 	@Override
