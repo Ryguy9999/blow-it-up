@@ -1,5 +1,7 @@
 package com.fwumdesoft.blow;
 
+import java.io.FileNotFoundException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
@@ -11,6 +13,8 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.fwumdesoft.music.Music;
+import com.fwumdesoft.music.Song;
 
 public class GameScreen extends ScreenAdapter {
 	Stage stage;
@@ -46,6 +50,18 @@ public class GameScreen extends ScreenAdapter {
 		m1.setY(1080 / 2);
 		m1.setX(1920);
 		stage.addActor(m1);
+		
+		try 
+		{
+			Song s = new Song(Gdx.files.internal("music/FwumDeOne.fmf").file());
+			Music piano = new Music(s.bpm, 0);
+			piano.playSong(s);
+		} catch (FileNotFoundException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	@Override
