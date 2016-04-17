@@ -68,7 +68,7 @@ public class GameScreen extends ScreenAdapter {
 		m.setX(1920 / 2 - 64 + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
 		m.setY(1080 / 2 - 32 + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
 		m.setRotation((lane * 45 + 180) % 360);
-		m.speed = Missile.DEFAULT_SPEED;
+		m.speed = Missile.DEFAULT_SPEED * (time / 100 + 1);
 		stage.addActor(m);
 	}
 	
@@ -98,14 +98,17 @@ public class GameScreen extends ScreenAdapter {
 			{
 				camera.position.set(MathUtils.lerp(camera.position.x, 1920 / 2, 0.5f), MathUtils.lerp(camera.position.y, 1080 / 2, 0.5f), 0);
 			}
-			time += delta;
+			
 			//spawn missile logic
-			if(time >= 1 && Math.random() < 1.0/3.0)
+			float someShit = (float) (5.0 - time / 40.0);
+			if(someShit < 0) 
+				someShit = 1;
+			if((int)time != (int)(time+delta) && Math.random() < 1.0/someShit)
 			{
-				time -= 1.0;
 				int lane = (int)(Math.random()*8);
 				spawnMissile(lane);
 			}
+			time += delta;
 		}
 		if(slowdownRemaining > 0)
 			slowdownRemaining--;
