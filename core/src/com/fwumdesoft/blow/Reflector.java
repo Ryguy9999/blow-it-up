@@ -42,15 +42,15 @@ public class Reflector extends DrawingActor {
 			float xSpeed = (float) (3 * Math.cos(Math.toRadians(getRotation())));
 			float ySpeed = (float) (3 * Math.sin(Math.toRadians(getRotation())));
 			float len = (float)Math.sqrt(xSpeed * xSpeed + ySpeed * ySpeed);
-			Particle.spawnCluster(getStage(), 15, 1920 / 2 + 100 * (xSpeed / len), 1080 / 2 + 100 * (ySpeed / len), 1, xSpeed, ySpeed, 0.5f, 45, 15, Color.BLUE);
+			Particle.spawnCluster(getStage(), 15, 1920 / 2 + 100 * (xSpeed / len), 1080 / 2 + 100 * (ySpeed / len), 1, xSpeed, ySpeed, 0.5f, 45, 15, Color.BLUE, true);
 			if(Math.abs(Vector2.dst(getX(), getY(), m.getX(), m.getY()) - range/2) < range/2/10)
-				Particle.spawnCluster(getStage(), 20, getX(), getY(), 5, 0, 0, 10f, 40, 10, Color.YELLOW);
+				Particle.spawnCluster(getStage(), 20, getX(), getY(), 5, 0, 0, 10f, 40, 10, Color.YELLOW, true);
 			else if(Math.abs(Vector2.dst(getX(), getY(), m.getX(), m.getY()) - range/2) < range/2/5)
-				Particle.spawnCluster(getStage(), 15, getX(), getY(), 5, 0, 0, 8f, 35, 10, Color.GREEN);
+				Particle.spawnCluster(getStage(), 15, getX(), getY(), 5, 0, 0, 8f, 35, 10, Color.GREEN, true);
 			else if(Math.abs(Vector2.dst(getX(), getY(), m.getX(), m.getY()) - range/2) < range/2/2)
-				Particle.spawnCluster(getStage(), 10, getX(), getY(), 5, 0, 0, 7f, 30, 10, Color.BLUE);
+				Particle.spawnCluster(getStage(), 10, getX(), getY(), 5, 0, 0, 7f, 30, 10, Color.BLUE, true);
 			else if(Math.abs(Vector2.dst(getX(), getY(), m.getX(), m.getY()) - range/2) < range/2)
-				Particle.spawnCluster(getStage(), 5, getX(), getY(), 5, 0, 0, 5f, 20, 10, Color.RED);
+				Particle.spawnCluster(getStage(), 5, getX(), getY(), 5, 0, 0, 5f, 20, 10, Color.RED, true);
 		}
 	}
 
