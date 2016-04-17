@@ -74,7 +74,7 @@ public class Missile extends DrawingActor implements Poolable {
 
 	@Override
 	public void reset() {
-		damage = 10;
+		damage = 1;
 		setX(0);
 		setY(0);
 		vPos.set(getX(), getY());

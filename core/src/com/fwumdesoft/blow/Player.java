@@ -61,6 +61,7 @@ public class Player extends DrawingActor {
 		health -= dmg;
 		GameScreen.slowdownRemaining = 60;
 		GameScreen.rotateCamera(true);
+		Particle.spawnCluster(getStage(), 30, 20 + health * 32 + 16, 26, 5, 0, 0, 7.5f, 50, 25, Color.RED, false);
 		return health <= 0;
 	}
 	
