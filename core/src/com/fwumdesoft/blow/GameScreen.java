@@ -74,10 +74,7 @@ public class GameScreen extends ScreenAdapter {
 		new Thread(musicRunnable).start();
 	}
 	
-	/**
-	 * Spawns a missile in <tt>lane</tt>.
-	 * @param lane
-	 */
+	
 	private void spawnMissile(int lane) {
 		final int SPAWN_DISTANCE = 600;
 		Missile m = missilePool.obtain();
@@ -95,28 +92,29 @@ public class GameScreen extends ScreenAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.act(delta);
-		
-		//shake the screen when player is hit
-		if(shaking) {
+		if(shaking)
+		{
 			totalShakeTime -= delta;
 			timeOnShake -= delta;
-			System.out.println(totalShakeTime);
 			if(totalShakeTime < 0)
 				shaking = false;
-			if(timeOnShake < 0) {
-				shakeX += (Math.random() - 0.5f) * 3;
-				shakeY += (Math.random() - 0.5f) * 3;
+			if(timeOnShake < 0)
+			{
+				shakeX += (Math.random() - 0.5f) * (Math.random() * 3);
+				shakeY += (Math.random() - 0.5f) * (Math.random() * 3);
 			}
 //			shakeDistance.add(shakeDirection);
 			camera.position.set(1920 / 2 + shakeX, 1080 / 2 + shakeY, 0);
+			camera.position.set(MathUtils.lerp(camera.position.x, 1920 / 2, (float) Math.random()), MathUtils.lerp(camera.position.y, 1080 / 2, (float) Math.random()), 0);
 		}
-		else {
-			camera.position.set(1920 / 2, 1080 / 2, 0);
+		else 
+		{
+			camera.position.set(MathUtils.lerp(camera.position.x, 1920 / 2, 0.5f), MathUtils.lerp(camera.position.y, 1080 / 2, 0.5f), 0);
 		}
 		time += delta;
-		
 		//spawn missile logic
-		if(time >= 1 && Math.random() < 1.0/3.0) {
+		if(time >= 1 && Math.random() < 1.0/3.0)
+		{
 			time -= 1.0;
 			int lane = (int)(Math.random()*8);
 			spawnMissile(lane);
@@ -124,12 +122,13 @@ public class GameScreen extends ScreenAdapter {
 		stage.draw();
 	}
 	
-	public static void rotateCamera(boolean strong) {
+	public static void rotateCamera(boolean strong)
+	{
 		shaking = true;
 		if(strong)
-			totalShakeTime = 1;
+			totalShakeTime = 0.75f;
 		else
-			totalShakeTime = 0.5f;
+			totalShakeTime = 0;
 				
 	}
 }

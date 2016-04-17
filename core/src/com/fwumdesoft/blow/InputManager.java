@@ -14,7 +14,7 @@ public class InputManager extends Actor {
 
 	int tickCooldown;
 	GameScreen screen;
-	final int maxTick = 30;
+	final int maxTick = 5;
 
 	public InputManager(GameScreen screen, final Reflector... reflectors) {
 		this.screen = screen;

@@ -51,6 +51,7 @@ public class Player extends DrawingActor {
 	 * @return true if the player is dead (0 or less health), false otherwise
 	 */
 	public boolean doDamage(int dmg) {
+		Particle.spawnCluster(getStage(), 100, getX() + getOriginX(), getY() + getOriginY(), 50, 0, 0, 10, 45, 30);
 		health -= dmg;
 		GameScreen.rotateCamera(true);
 		return health <= 0;
