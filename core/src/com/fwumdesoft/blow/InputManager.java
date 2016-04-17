@@ -7,14 +7,11 @@ import com.badlogic.gdx.controllers.ControllerAdapter;
 import com.badlogic.gdx.controllers.ControllerListener;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.PovDirection;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 
-public class InputManager extends Actor {
+public class InputManager {
 
-	int tickCooldown;
 	GameScreen screen;
-	final int maxTick = 5;
 
 	public InputManager(GameScreen screen, final Reflector... reflectors) {
 		this.screen = screen;
@@ -22,9 +19,6 @@ public class InputManager extends Actor {
 
 			@Override
 			public boolean buttonDown(Controller controller, int buttonCode) {
-				if (tickCooldown > 0)
-					return false;
-				tickCooldown = maxTick;
 				switch (buttonCode) {
 				case 0:
 					trigger(reflectors[1]);
@@ -46,9 +40,6 @@ public class InputManager extends Actor {
 
 			@Override
 			public boolean povMoved(Controller controller, int povCode, PovDirection value) {
-				if (tickCooldown > 0)
-					return false;
-				tickCooldown = maxTick;
 				switch (value) {
 				case east:
 					trigger(reflectors[0]);
@@ -119,12 +110,6 @@ public class InputManager extends Actor {
 			controller.addListener(controllerListen);
 		}
 		Gdx.input.setInputProcessor(inListen);
-	}
-
-	@Override
-	public void act(float delta) {
-		if (tickCooldown > 0)
-			tickCooldown--;
 	}
 
 	private void trigger(Reflector reflector) {

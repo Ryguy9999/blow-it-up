@@ -46,7 +46,7 @@ public class GameScreen extends ScreenAdapter {
 			reflectors[i].setY(reflectors[i].getY() + 150 * MathUtils.sinDeg(angle) - 40);
 			stage.addActor(reflectors[i]);
 		}
-		stage.addActor(new InputManager(this, reflectors));
+		new InputManager(this, reflectors);
 		
 		p1 = new Player(0, 10); //Debug player :(
 		stage.addActor(p1);
