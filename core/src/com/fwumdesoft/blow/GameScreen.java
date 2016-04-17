@@ -17,7 +17,7 @@ public class GameScreen extends ScreenAdapter {
 	SpriteBatch batch;
 	final float WORLD_WIDTH = 1920, WORLD_HEIGHT = 1080;
 	int playerNumber = 0;
-	boolean isAttacking = true;
+	boolean isAttacking = false;
 	
 	public static Pool<Missile> missilePool;
 	
@@ -38,8 +38,9 @@ public class GameScreen extends ScreenAdapter {
 		stage.addActor(new InputManager(this, reflectors));
 		
 		Player p1 = new Player(0, 10);
+		stage.addActor(p1);
 		
-		Missile m1 = new Missile(); //Debug Missile :)
+		Missile m1 = new Missile(10, 0); //Debug Missile :)
 		m1.speed = 50;
 		m1.setRotation(180);
 		m1.setY(1080 / 2);
