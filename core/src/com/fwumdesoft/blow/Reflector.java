@@ -30,7 +30,9 @@ public class Reflector extends DrawingActor {
 
 	public void reflectMissile(Missile m) {
 		if (!m.flipped) {
+			//TODO: Change speed by quality of reflect
 			m.rotateBy(180);
+			m.speed *= 5;
 		}
 	}
 
