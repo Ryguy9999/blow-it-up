@@ -38,6 +38,7 @@ public class GameScreen extends ScreenAdapter {
 		stage.addActor(new BackgroundActor());
 		
 		missilePool = Pools.get(Missile.class); //max missiles in pool = 100
+		stage.addActor(new MissileSpawningActor(missilePool));
 		
 		Reflector[] reflectors = new Reflector[8];
 		for(int i = 0; i < reflectors.length; i++) {
