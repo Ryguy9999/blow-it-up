@@ -17,7 +17,7 @@ public class Missile extends DrawingActor implements Poolable {
 	public Polygon bounds;
 	public boolean flipped;
 	
-	public static final float DEFAULT_SPEED = 200;
+	public static final float DEFAULT_SPEED = 350;
 
 	private Vector2 vPos;
 
