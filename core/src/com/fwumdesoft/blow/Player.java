@@ -8,9 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Player extends DrawingActor {
 	public byte id;
-	private short health, maxHealth;
+	private int health, maxHealth;
 	public float powerLevel;
-	public Texture texture;
 	public Circle bounds;
 
 	/**
@@ -19,21 +18,21 @@ public class Player extends DrawingActor {
 	 * @param health The maximumHealth of the player and the initial health of the player
 	 */
 	public Player(byte id, short health) {
-		super(null); //TODO Replace with player texture when done
+		super(BlowItUp.assets.get("player.png", Texture.class));
 		this.id = id;
 		maxHealth = this.health = health;
 		powerLevel = 0;
 		texture = null;
 		setX(Gdx.graphics.getWidth()/2);
 		setY(Gdx.graphics.getHeight()/2);
-		bounds = new Circle(getX(), getY(), 100);
+		bounds = new Circle(getX(), getY(), texture.getRegionWidth()/2);
 	}
 
-	public short getHealth() {
+	public int getHealth() {
 		return health;
 	}
 
-	public short getMaxHealth() {
+	public int getMaxHealth() {
 		return maxHealth;
 	}
 
