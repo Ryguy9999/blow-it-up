@@ -22,7 +22,7 @@ public class Player extends DrawingActor {
 		maxHealth = this.health = health;
 		powerLevel = 0;
 		setX(1920 / 2 - texture.getRegionWidth() / 2);
-		setY(1080 / 2 - texture.getRegionHeight() / 2);
+		setY(1080 / 2 - texture.getRegionHeight() / 2 + 16);
 		setOrigin(texture.getRegionWidth() / 2, texture.getRegionHeight() / 2);
 		bounds = new Circle(getX(), getY(), texture.getRegionWidth()/2);
 	}
