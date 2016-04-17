@@ -45,7 +45,6 @@ public class Reflector extends DrawingActor {
 				Missile m = (Missile) actor;
 				if (m.lane != lane)
 					continue;
-				System.out.println(Vector2.dst(getX(), getY(), m.getX(), m.getY()));
 				if (Vector2.dst(getX(), getY(), m.getX(), m.getY()) <= range) {
 					reflectMissile(m);
 				}
@@ -55,6 +54,6 @@ public class Reflector extends DrawingActor {
 
 	@Override
 	public void act(float delta) {
-		System.out.println(getOriginX() + " " + getOriginY());
+		
 	}
 }

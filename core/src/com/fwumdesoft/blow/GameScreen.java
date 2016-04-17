@@ -26,6 +26,7 @@ public class GameScreen extends ScreenAdapter {
 	final float WORLD_WIDTH = 1920, WORLD_HEIGHT = 1080;
 	int playerNumber = 0;
 	boolean isAttacking = false;
+	Player p1;
 	private Camera camera;
 	private static boolean shaking;
 	private static Vector3 shakeDirection, shakeDistance;
@@ -42,7 +43,6 @@ public class GameScreen extends ScreenAdapter {
 		stage.addActor(new BackgroundActor());
 		
 		missilePool = Pools.get(Missile.class); //max missiles in pool = 100
-		stage.addActor(new MissileSpawningActor(missilePool));
 		
 		Reflector[] reflectors = new Reflector[8];
 		for(int i = 0; i < reflectors.length; i++) {
@@ -56,7 +56,7 @@ public class GameScreen extends ScreenAdapter {
 		}
 		stage.addActor(new InputManager(this, reflectors));
 		
-		Player p1 = new Player(0, 10); //Debug player :(
+		p1 = new Player(0, 10); //Debug player :(
 		stage.addActor(p1);
 		
 		for(int i = 0; i < 8; i++)
@@ -72,7 +72,7 @@ public class GameScreen extends ScreenAdapter {
 				e.printStackTrace();
 			}
 		};
-		
+		 
 		new Thread(musicRunnable).start();
 	}
 	
@@ -81,13 +81,14 @@ public class GameScreen extends ScreenAdapter {
 		final int SPAWN_DISTANCE = 600;
 		Missile m = missilePool.obtain();
 		m.lane = lane;
+		m.setX(p1.getX() + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
+		m.setY(p1.getY() + 32 + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
 		m.setRotation(lane * 45 + 180);
-		m.setX(1920 / 2 - 48 + SPAWN_DISTANCE * MathUtils.cosDeg(lane * 45));
-		m.setY(1080 / 2 - 48 + SPAWN_DISTANCE * MathUtils.sinDeg(lane * 45));
 		m.speed = Missile.DEFAULT_SPEED;
 		stage.addActor(m);
 	}
 	
+	private float time = 0;
 	@Override
 	public void render (float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -111,6 +112,14 @@ public class GameScreen extends ScreenAdapter {
 		else 
 		{
 			camera.position.set(1920 / 2, 1080 / 2, 0);
+		}
+		time += delta;
+		//spawn missile logic
+		if(time >= 1 && Math.random() < 1.0/3.0)
+		{
+			time -= 1.0;
+			int lane = (int)(Math.random()*8);
+			spawnMissile(lane);
 		}
 		stage.draw();
 	}
