@@ -1,5 +1,6 @@
 package com.fwumdesoft.blow;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
@@ -54,6 +55,8 @@ public class Player extends DrawingActor {
 	 * @return true if the player is dead (0 or less health), false otherwise
 	 */
 	public boolean doDamage(int dmg) {
+		Sound sound = BlowItUp.assets.get("music/explosion.mp3", Sound.class);
+		sound.play();
 		Particle.spawnCluster(getStage(), 100, getX() + getOriginX(), getY() + getOriginY(), 50, 0, 0, 10, 45, 30, Color.RED);
 		health -= dmg;
 		GameScreen.rotateCamera(true);
