@@ -67,7 +67,7 @@ public class Missile extends DrawingActor implements Poolable {
 		setOrigin(texture.getRegionWidth() / 2, texture.getRegionHeight() / 2);
 		vPos = new Vector2(x, y);
 		this.lane = lane;
-		bounds = new Polygon(new float[] { 0, 0, getWidth(), 0, 0, getHeight(), getWidth(), getHeight() });
+		bounds = new Polygon(new float[] { 0, 0, getWidth() - 20, 0, 0, getHeight(), getWidth() - 20, getHeight() });
 		flipped = false;
 	}
 
@@ -87,6 +87,9 @@ public class Missile extends DrawingActor implements Poolable {
 		setY(getY() + speed * MathUtils.sinDeg(getRotation()) * delta);
 		bounds.setPosition(getX(), getY());
 		bounds.setRotation(getRotation());
+		if(getStage() != null && Math.random() <= 0.5f) {
+			Particle.spawnCluster(getStage(), 3, getX(), getY(), 0, -speed * MathUtils.cosDeg(getRotation()) * delta, -speed * MathUtils.sinDeg(getRotation()) * delta, 0.5f, 20, 5);
+		}
 	}
 
 	/**

@@ -35,6 +35,10 @@ public class Reflector extends DrawingActor {
 			m.speed *= 5;
 			m.flipped = true;
 			GameScreen.rotateCamera(false);
+			float xSpeed = (float) (3 * Math.cos(Math.toRadians(getRotation())));
+			float ySpeed = (float) (3 * Math.sin(Math.toRadians(getRotation())));
+			float len = (float)Math.sqrt(xSpeed * xSpeed + ySpeed * ySpeed);
+			Particle.spawnCluster(getStage(), 15, 1920 / 2 + 100 * (xSpeed / len), 1080 / 2 + 100 * (ySpeed / len), 1, xSpeed, ySpeed, 0.5f, 45, 15);
 		}
 	}
 
