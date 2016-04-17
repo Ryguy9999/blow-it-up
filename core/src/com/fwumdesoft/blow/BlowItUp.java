@@ -20,6 +20,7 @@ public class BlowItUp extends Game {
 		assets.load("particle.png", Texture.class);
 		assets.load("music/emp.wav", Sound.class);
 		assets.load("heart.png", Texture.class);
+		assets.load("music/explosion.mp3", Sound.class);
 		assets.finishLoading();
 		
 		setScreen(new GameScreen());
