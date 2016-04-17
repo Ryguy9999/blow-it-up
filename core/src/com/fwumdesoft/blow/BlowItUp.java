@@ -15,6 +15,7 @@ public class BlowItUp extends Game {
 		assets.load("missile.png", Texture.class);
 		assets.load("reflector.png", Texture.class);
 		assets.load("player.png", Texture.class);
+		assets.load("stars.png", Texture.class);
 		assets.finishLoading();
 		
 		setScreen(new GameScreen());

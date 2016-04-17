@@ -1,6 +1,5 @@
 package com.fwumdesoft.blow;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
@@ -23,7 +22,8 @@ public class Player extends DrawingActor {
 		maxHealth = this.health = health;
 		powerLevel = 0;
 		setX(1920 / 2 - texture.getRegionWidth() / 2);
-		setY(1080 / 2 - texture.getRegionHeight() / 2);
+		setY(1080 / 2 - texture.getRegionHeight() / 2 + 16);
+		setOrigin(texture.getRegionWidth() / 2, texture.getRegionHeight() / 2);
 		bounds = new Circle(getX(), getY(), texture.getRegionWidth()/2);
 	}
 
@@ -63,6 +63,9 @@ public class Player extends DrawingActor {
 				Missile m = (Missile)a;
 				if(Intersector.overlaps(bounds, m.bounds.getBoundingRectangle())) {
 					boolean dead = doDamage(m.damage);
+					if(dead) {
+						System.out.println("DEAD");
+					}
 					GameScreen.missilePool.free(m);
 					m.remove();
 				}
