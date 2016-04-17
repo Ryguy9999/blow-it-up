@@ -25,7 +25,7 @@ public class BlowItUp extends Game {
 		assets.load("music/explosion.mp3", Sound.class);
 		assets.finishLoading();
 		
-		setScreen(new GameScreen());
+		setScreen(new GameScreen(this));
 	}
 	
 	@Override
