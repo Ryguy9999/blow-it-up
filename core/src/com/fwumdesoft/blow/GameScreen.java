@@ -37,7 +37,7 @@ public class GameScreen extends ScreenAdapter {
 			reflectors[i] = new Reflector(400, i); 
 			reflectors[i].setPosition(1920 / 2, 1080 / 2);
 			float angle = 45 * i; 
-			reflectors[i].setOrigin(0, 64);
+			reflectors[i].setOrigin(0, reflectors[i].texture.getRegionHeight() / 2);
 			reflectors[i].setX(reflectors[i].getX() + 100 * MathUtils.cosDeg(angle));
 			reflectors[i].setY(reflectors[i].getY() + 100 * MathUtils.sinDeg(angle) - 40);
 			stage.addActor(reflectors[i]);
