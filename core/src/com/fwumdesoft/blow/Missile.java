@@ -55,6 +55,7 @@ public class Missile extends DrawingActor implements Poolable {
 		this.damage = damage;
 		setX(x);
 		setY(y);
+		setOrigin(texture.getRegionWidth() / 2, texture.getRegionHeight() / 2);
 		vPos = new Vector2(x, y);
 		this.lane = lane;
 		bounds = new Polygon(new float[] {0,0, getWidth(),0,  0,getHeight(), getWidth(),getHeight()});

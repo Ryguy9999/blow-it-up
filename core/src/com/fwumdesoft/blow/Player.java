@@ -23,6 +23,7 @@ public class Player extends DrawingActor {
 		powerLevel = 0;
 		setX(1920 / 2 - texture.getRegionWidth() / 2);
 		setY(1080 / 2 - texture.getRegionHeight() / 2);
+		setOrigin(texture.getRegionWidth() / 2, texture.getRegionHeight() / 2);
 		bounds = new Circle(getX(), getY(), texture.getRegionWidth()/2);
 	}
 
