@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Player extends DrawingActor {
-	public byte id;
+	public final  int id;
 	private int health, maxHealth;
 	public float powerLevel;
 	public Circle bounds;
@@ -17,7 +17,7 @@ public class Player extends DrawingActor {
 	 * @param id The ID of the player (either 0 or 1 for Player 1 or Player 2)
 	 * @param health The maximumHealth of the player and the initial health of the player
 	 */
-	public Player(byte id, short health) {
+	public Player(int id, int health) {
 		super(BlowItUp.assets.get("player.png", Texture.class));
 		this.id = id;
 		maxHealth = this.health = health;
