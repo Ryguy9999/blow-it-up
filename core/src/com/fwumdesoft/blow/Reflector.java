@@ -38,6 +38,7 @@ public class Reflector extends DrawingActor {
 			m.rotateBy(180);
 			m.speed *= 5;
 			m.flipped = true;
+			GameScreen.reflects += 1;
 			GameScreen.rotateCamera(false);
 			if(Math.abs(Vector2.dst(getX(), getY(), m.getX(), m.getY()) - range/2) < range/2/10)
 				Particle.spawnCluster(getStage(), 20, getX(), getY(), 5, 0, 0, 10f, 40, 10, Color.YELLOW, true);

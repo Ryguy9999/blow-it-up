@@ -1,13 +1,14 @@
 package com.fwumdesoft.blow;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -26,7 +27,8 @@ public class GameScreen extends ScreenAdapter {
 	private Camera camera;
 	private static boolean shaking;
 	private static float timeOnShake, totalShakeTime, shakeX, shakeY;
-	public static int slowdownRemaining = 0;
+	public static int slowdownRemaining = 0, reflects = 0;
+	public BitmapFont font;
 	
 	public static Pool<Missile> missilePool;
 	
@@ -38,7 +40,7 @@ public class GameScreen extends ScreenAdapter {
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Viewport viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 		stage = new Stage(viewport, batch);
-		
+		font = new BitmapFont();
 		stage.addActor(new BackgroundActor());
 		
 		missilePool = Pools.get(Missile.class); //max missiles in pool = 100
@@ -102,7 +104,7 @@ public class GameScreen extends ScreenAdapter {
 			{
 				camera.position.set(MathUtils.lerp(camera.position.x, 1920 / 2, 0.5f), MathUtils.lerp(camera.position.y, 1080 / 2, 0.5f), 0);
 			}
-			
+//			camera.rotate(2, 0, 0, 1);
 			//spawn missile logic
 			float someShit = (float) (5.0 - time / 40.0);
 			if(someShit < 0) 
@@ -121,6 +123,11 @@ public class GameScreen extends ScreenAdapter {
 		stage.getBatch().begin();
 		for(int i = 0; i < p1.getHealth(); i++)
 			stage.getBatch().draw(BlowItUp.assets.get("heart.png", Texture.class), 20 + i * 32, 20);
+		stage.getBatch().end();
+		
+		stage.getBatch().begin();
+		stage.getBatch().setColor(Color.WHITE);
+		font.draw(stage.getBatch(), "" + GameScreen.reflects, 32, 1020);
 		stage.getBatch().end();
 	}
 	
