@@ -1,7 +1,5 @@
 package com.fwumdesoft.blow;
 
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Camera;
