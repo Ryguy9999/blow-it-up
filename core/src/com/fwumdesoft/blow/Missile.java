@@ -2,9 +2,12 @@ package com.fwumdesoft.blow;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 /**
@@ -63,25 +66,36 @@ public class Missile extends DrawingActor implements Poolable {
 	public Missile(int damage, float x, float y, int lane) {
 		super(BlowItUp.assets.get("missile.png", Texture.class));
 		this.damage = damage;
-		setX(x);
-		setY(y);
-		setOrigin(texture.getRegionWidth() / 2, texture.getRegionHeight() / 2);
+		setSize(texture.getRegionWidth(), texture.getRegionHeight());
+		setOrigin(Align.center);
+		setPosition(x, y);
 		vPos = new Vector2(x, y);
 		this.lane = lane;
-		bounds = new Polygon(new float[] { 0, 0, getWidth() - 20, 0, 0, getHeight(), getWidth() - 20, getHeight() });
+		bounds = new Polygon(new float[] {0, 0, getWidth(), 0, getWidth(), getHeight(), 0, getHeight()});
+		bounds.setPosition(x, y);
+		bounds.setOrigin(getOriginX(), getOriginY());
 		flipped = false;
+	}
+	
+	@Override
+	public void drawDebug(ShapeRenderer shapes) {
+		super.drawDebug(shapes);
+		shapes.set(ShapeType.Line);
+		shapes.setColor(Color.GOLD);
+		shapes.polygon(bounds.getTransformedVertices());
 	}
 
 	@Override
 	public void reset() {
 		damage = 1;
-		setX(0);
-		setY(0);
+		setPosition(0, 0);
+		setRotation(0);
 		vPos.set(getX(), getY());
 		speed = 0;
 		lane = 0;
 		bounds.setPosition(getX(), getY());
 		bounds.setRotation(getRotation());
+		bounds.setOrigin(getOriginX(), bounds.getOriginY());
 	}
 
 	@Override

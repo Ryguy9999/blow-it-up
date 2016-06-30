@@ -40,6 +40,7 @@ public class GameScreen extends ScreenAdapter {
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Viewport viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 		stage = new Stage(viewport, batch);
+		stage.setDebugAll(false);
 		font = new BitmapFont();
 		stage.addActor(new BackgroundActor());
 		

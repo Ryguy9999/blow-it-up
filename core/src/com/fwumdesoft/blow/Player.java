@@ -3,18 +3,19 @@ package com.fwumdesoft.blow;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 
 public class Player extends DrawingActor {
-	public final  int id;
+	public final int id;
 	private int health, maxHealth;
 	public float powerLevel;
 	public Circle bounds;
-
+	
 	/**
 	 * Constructs the player
 	 * @param id The ID of the player (either 0 or 1 for Player 1 or Player 2)
@@ -25,30 +26,38 @@ public class Player extends DrawingActor {
 		this.id = id;
 		maxHealth = this.health = health;
 		powerLevel = 0;
-		setX(1920 / 2 - texture.getRegionWidth() / 2);
-		setY(1080 / 2 - texture.getRegionHeight() / 2);
-		setOrigin(texture.getRegionWidth() / 2, texture.getRegionHeight() / 2);
-		bounds = new Circle(getX(), getY(), texture.getRegionWidth()/2);
+		setSize(texture.getRegionWidth(), texture.getRegionHeight());
+		setOrigin(Align.center);
+		setPosition(1920f / 2, 1080f / 2, Align.center);
+		bounds = new Circle(getX(Align.center), getY(Align.center), getWidth() / 2);
 	}
-
+	
 	public int getHealth() {
 		return health;
 	}
-
+	
 	public int getMaxHealth() {
 		return maxHealth;
 	}
-
+	
 	/**
 	 * Restores the player's health up to maxHealth
 	 * @param heal The amount to heal by
 	 */
 	public void heal(short heal) {
 		health += heal;
-		if (health > maxHealth)
+		if(health > maxHealth)
 			health = maxHealth;
 	}
-
+	
+	@Override
+	public void drawDebug(ShapeRenderer shapes) {
+		super.drawDebug(shapes);
+		shapes.set(ShapeType.Line);
+		shapes.setColor(Color.GOLD);
+		shapes.circle(bounds.x, bounds.y, bounds.radius);
+	}
+	
 	/**
 	 * Reduces the player's health
 	 * @param dmg The amount to reduce health by
@@ -67,11 +76,11 @@ public class Player extends DrawingActor {
 	
 	@Override
 	public void act(float delta) {
-		//check if the player was lit (ayyy lmao)
+		//check if the player was hit
 		for(Actor a : getStage().getActors()) {
 			if(a instanceof Missile) {
 				Missile m = (Missile)a;
-				if(overlaps(m.bounds, bounds)) {
+				if(Intersector.overlaps(bounds, m.bounds.getBoundingRectangle())) {
 					boolean dead = doDamage(m.damage);
 					if(dead) {
 						GameScreen.up.setScreen(new GameOverScreen());
@@ -81,21 +90,5 @@ public class Player extends DrawingActor {
 				}
 			}
 		}
-	}
-
-	public boolean overlaps(Polygon polygon, Circle circle) {
-	    float []vertices=polygon.getTransformedVertices();
-	    Vector2 center=new Vector2(circle.x, circle.y);
-	    float squareRadius=circle.radius*circle.radius;
-	    for (int i=0;i<vertices.length;i+=2){
-	        if (i==0){
-	            if (Intersector.intersectSegmentCircle(new Vector2(vertices[vertices.length-2], vertices[vertices.length-1]), new Vector2(vertices[i], vertices[i+1]), center, squareRadius))
-	                return true;
-	        } else {
-	            if (Intersector.intersectSegmentCircle(new Vector2(vertices[i-2], vertices[i-1]), new Vector2(vertices[i], vertices[i+1]), center, squareRadius))
-	                return true;
-	        }
-	    }
-	    return false;
 	}
 }
